@@ -1,0 +1,113 @@
+aid: lunar
+name: Lunar
+description: >-
+  Lunar is an enterprise-grade API management and AI control plane platform
+  that provides a unified gateway for managing API traffic policies, rate
+  limiting, quota enforcement, and API monetization across gateways. The
+  platform combines an API consumption gateway with an MCP (Model Context
+  Protocol) gateway to govern, secure, and observe interactions between AI
+  agents, APIs, and data sources. Lunar delivers real-time visibility into
+  model, API, and tool invocations alongside policy-based enforcement, cost
+  controls, and advanced traffic shaping including retries, priority queues,
+  and circuit breakers.
+type: Index
+image: >-
+  https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/lunar/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - API Management
+  - API Gateway
+  - AI Gateway
+  - MCP Gateway
+  - Rate Limiting
+  - Quota Enforcement
+  - API Monetization
+  - Traffic Management
+  - API Governance
+  - Cost Controls
+  - Observability
+apis:
+  - aid: lunar:api-consumption-gateway
+    name: Lunar API Consumption Gateway
+    description: >-
+      The Lunar API Consumption Gateway is a proxy-based infrastructure layer
+      that routes outbound HTTP/HTTPS API traffic through configurable YAML-based
+      flows. It enforces rate limits, quota policies, priority queues, circuit
+      breakers, and endpoint access controls without requiring code changes in
+      consuming applications. Requests are routed by setting x-lunar-scheme,
+      x-lunar-host, and x-lunar-consumer-tag headers and targeting the gateway
+      on port 8000.
+    humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+    baseURL: https://app.lunar.dev
+    tags:
+      - API Gateway
+      - Traffic Management
+      - Rate Limiting
+      - Quota Enforcement
+    properties:
+      - type: Documentation
+        url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+      - type: QuickStart
+        url: >-
+          https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
+      - type: ControlPlane
+        url: https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-control-plane/
+  - aid: lunar:mcpx-gateway
+    name: Lunar MCPX Gateway
+    description: >-
+      The Lunar MCPX Gateway is an agent-native Model Context Protocol gateway
+      that governs tool invocation for AI agents. It consolidates multiple MCP
+      servers into a single endpoint, providing authentication, scoped
+      permissions, secret forwarding, audit trails, and risk evaluation for
+      AI agent workloads. The MCPX gateway supports role-based access control,
+      tool groups, tool customization, and remote MCP authentication.
+    humanURL: https://www.lunar.dev/product/ai-gateway
+    baseURL: https://app.lunar.dev
+    tags:
+      - MCP Gateway
+      - AI Governance
+      - Agent Security
+      - Tool Access Control
+    properties:
+      - type: Documentation
+        url: https://docs.lunar.dev/
+      - type: ProductPage
+        url: https://www.lunar.dev/product/ai-gateway
+common:
+  - type: Website
+    url: https://www.lunar.dev/
+  - type: Documentation
+    url: https://docs.lunar.dev/
+  - type: GitHubOrg
+    url: https://github.com/TheLunarCompany
+  - type: GitHubRepository
+    url: https://github.com/TheLunarCompany/lunar
+  - type: LinkedIn
+    url: https://linkedin.com/company/lunar-api
+  - type: X
+    url: https://twitter.com/_lunardev
+  - type: Blog
+    url: https://www.lunar.dev/lunar-blog
+  - type: Pricing
+    url: https://www.lunar.dev/pricing
+  - type: SignUp
+    url: https://app.lunar.dev
+  - type: Discord
+    url: https://discord.gg/T2VvD3hpxD
+  - type: YouTube
+    url: https://www.youtube.com/@LunarDev-api/videos
+  - type: News
+    url: https://www.lunar.dev/in-the-news
+  - type: Plans
+    url: plans/lunar-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/lunar-rate-limits.yml
+  - type: FinOps
+    url: finops/lunar-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

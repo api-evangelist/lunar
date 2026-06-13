@@ -1,0 +1,108 @@
+name: Lunar Rate Limits
+description: >-
+  Lunar.dev enforces rate limits at multiple levels: platform-tier Flow run
+  quotas govern how many policy executions each gateway may perform per month,
+  while gateway-level flow configurations enforce per-API-endpoint request
+  limits using fixed-window, sliding-window, or custom strategies. The platform
+  proactively prevents HTTP 429 errors from upstream providers and can apply
+  priority queuing to distribute capacity across consumers. Rate limit
+  configuration is expressed in YAML flow and quota files deployed to the
+  gateway.
+url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+specificationVersion: '0.1'
+rateLimits:
+  - name: Free Tier Monthly Flow Runs
+    description: >-
+      Each gateway on the Free plan may execute up to 100,000 Lunar Flow runs
+      per calendar month. A Flow run corresponds to one policy evaluation
+      applied to an inbound or outbound API request.
+    limit: 100000
+    unit: Flow runs
+    window: month
+    scope: gateway
+    tier: Free
+  - name: Team Tier Monthly Flow Runs
+    description: >-
+      Each gateway on the Team plan may execute up to 2,000,000 Lunar Flow
+      runs per calendar month, with automated controls available for unlimited
+      burst handling.
+    limit: 2000000
+    unit: Flow runs
+    window: month
+    scope: gateway
+    tier: Team
+  - name: Enterprise Tier Monthly Flow Runs
+    description: >-
+      Enterprise plan gateways receive custom quota allocations negotiated
+      at contract time, designed for high-volume API and AI agent workloads.
+    limit: Custom
+    unit: Flow runs
+    window: month
+    scope: gateway
+    tier: Enterprise
+  - name: Gateway Fixed-Window Request Rate Limit
+    description: >-
+      Individual API endpoints managed by the Lunar gateway can be configured
+      with a fixed-window rate limit using quota.yaml. The example configuration
+      enforces 100 requests per minute per endpoint. Exceeding the quota returns
+      HTTP 429 with a configurable error message.
+    limit: 100
+    unit: requests
+    window: minute
+    strategy: fixed_window
+    scope: endpoint
+    configurationFile: quota.yaml
+    httpStatusOnExceed: 429
+    configurationExample: |
+      max: 100
+      interval: 1
+      interval_unit: minute
+  - name: Free Tier Managed APIs
+    description: >-
+      Free plan accounts may connect and manage up to 3 external APIs through
+      the Lunar gateway at any given time.
+    limit: 3
+    unit: managed APIs
+    window: account
+    scope: account
+    tier: Free
+  - name: Team Tier Managed APIs
+    description: >-
+      Team plan accounts may connect and manage up to 10 external APIs through
+      the Lunar gateway.
+    limit: 10
+    unit: managed APIs
+    window: account
+    scope: account
+    tier: Team
+  - name: Enterprise Tier Managed APIs
+    description: >-
+      Enterprise plan accounts have unlimited managed external APIs, with
+      custom quotas configured per workload.
+    limit: Unlimited
+    unit: managed APIs
+    window: account
+    scope: account
+    tier: Enterprise
+enforcement:
+  strategies:
+    - name: fixed_window
+      description: >-
+        Counts requests in a fixed calendar window (e.g., per minute, per hour).
+        The counter resets at the start of each window. Configured via max,
+        interval, and interval_unit fields in quota.yaml.
+    - name: priority_queue
+      description: >-
+        Queues excess requests by consumer priority rather than rejecting them
+        immediately. Higher-priority consumers are served first when capacity
+        is constrained.
+    - name: proactive_429_prevention
+      description: >-
+        The Lunar gateway monitors upstream provider rate-limit signals and
+        proactively throttles outbound traffic before upstream providers return
+        HTTP 429, preventing error propagation to the consuming application.
+  headers:
+    - name: x-lunar-consumer-tag
+      description: >-
+        Identifies the consuming application or service for per-consumer rate
+        limit tracking. Stripped before the request reaches the upstream provider.

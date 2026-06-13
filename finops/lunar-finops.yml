@@ -1,0 +1,112 @@
+name: Lunar FinOps Framework
+description: >-
+  Lunar.dev provides FinOps-aligned capabilities for managing the cost and
+  consumption of external APIs and AI model calls across enterprise workloads.
+  The platform delivers real-time cost visibility, budget enforcement through
+  quota policies, and cost-aware routing to optimize spend across API providers
+  and LLM model endpoints. Lunar's gateway-level controls map directly to FOCUS
+  (FinOps Open Cost and Usage Specification) principles by attributing API
+  spend to specific consumers, services, and environments.
+url: https://www.lunar.dev/pricing
+specificationVersion: '1.0'
+focus:
+  version: '1.0'
+  description: >-
+    FinOps Open Cost and Usage Specification (FOCUS) alignment for Lunar.dev
+    API cost management capabilities.
+capabilities:
+  - name: Real-Time API Cost Visibility
+    description: >-
+      The Lunar gateway provides live metrics on API call volume, latency,
+      error rates, and token usage across all outbound traffic. The Control
+      Plane dashboard surfaces cost and performance data per API endpoint,
+      consumer tag, and time window, enabling teams to identify high-spend
+      or underperforming integrations.
+    focusAlignment:
+      - Billing Data
+      - Usage Data
+      - Cost Allocation
+    url: https://docs.lunar.dev/next/control-plane/control-plane-dashboards/
+  - name: Consumer-Level Cost Attribution
+    description: >-
+      The x-lunar-consumer-tag header uniquely identifies each consuming
+      application or service. Gateway metrics are segmented by consumer tag,
+      enabling per-team, per-service, or per-agent cost attribution aligned
+      with FOCUS chargeback and showback practices.
+    focusAlignment:
+      - Cost Allocation
+      - Chargeback
+      - Showback
+    header: x-lunar-consumer-tag
+  - name: Quota-Based Budget Enforcement
+    description: >-
+      Quota YAML configurations enforce hard consumption limits per API
+      endpoint using fixed-window or custom strategies. When a consumer
+      reaches its quota, the gateway returns HTTP 429, preventing overrun
+      of budgeted API spend without requiring application-level code changes.
+    focusAlignment:
+      - Budget Management
+      - Anomaly Management
+    configurationFile: quota.yaml
+    httpStatusOnExceed: 429
+  - name: Priority Queue for Cost-Aware Traffic Shaping
+    description: >-
+      The Priority Queue Flow distributes available API capacity across
+      consumers according to configurable priority tiers. Lower-priority
+      (lower-value) traffic is throttled first during capacity constraints,
+      preserving budget for high-priority workloads and aligning cost
+      consumption with business value.
+    focusAlignment:
+      - Rate Optimization
+      - Budget Management
+  - name: Cost and Latency-Aware LLM Routing
+    description: >-
+      The AI Gateway component routes LLM API requests across model providers
+      based on real-time cost and latency signals. This enables automatic
+      selection of the most cost-efficient model endpoint that meets latency
+      SLAs, reducing unnecessary spend on premium model tiers.
+    focusAlignment:
+      - Rate Optimization
+      - Cost Allocation
+      - Usage Data
+    url: https://www.lunar.dev/product/ai-gateway
+  - name: Token Usage Tracking for AI Workloads
+    description: >-
+      Lunar tracks token consumption per LLM API call and surfaces aggregated
+      token usage in the Control Plane. This enables cost attribution for
+      generative AI workloads at the model, agent, and application level,
+      supporting FOCUS-aligned FinOps practices for AI infrastructure.
+    focusAlignment:
+      - Usage Data
+      - Cost Allocation
+      - Billing Data
+  - name: Multi-Environment Quota Tracking
+    description: >-
+      The platform supports separate quota configurations and consumption
+      tracking across development, staging, and production environments,
+      enabling accurate per-environment cost reporting and preventing
+      non-production traffic from consuming production API budgets.
+    focusAlignment:
+      - Cost Allocation
+      - Billing Data
+  - name: Platform Flow Run Cost Management
+    description: >-
+      Platform-tier monthly Flow run quotas (100K Free, 2M Team, custom
+      Enterprise) define the operational cost envelope for the Lunar gateway
+      itself, making platform cost predictable and tiered to organizational
+      scale and usage volume.
+    focusAlignment:
+      - Budget Management
+      - Rate Optimization
+    tiers:
+      - tier: Free
+        monthlyFlowRuns: 100000
+        price: '$0/month'
+      - tier: Team
+        monthlyFlowRuns: 2000000
+        price: '$250/month per gateway'
+      - tier: Enterprise
+        monthlyFlowRuns: Custom
+        price: 'Custom/contact for quote'
+pricingUrl: https://www.lunar.dev/pricing
+documentationUrl: https://docs.lunar.dev/

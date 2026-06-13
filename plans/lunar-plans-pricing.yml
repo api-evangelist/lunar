@@ -1,0 +1,84 @@
+name: Lunar Plans and Pricing
+description: >-
+  Lunar.dev offers three pricing tiers for its API management and AI gateway
+  platform. Plans are differentiated by the number of managed APIs, monthly
+  Flow run volume, gateway deployment options, MCP features, and support level.
+  The Free tier supports personal and non-production use; Team targets growing
+  engineering organizations; Enterprise is designed for AI-at-scale production
+  workloads requiring SSO, RBAC, private MCP registries, and compliance controls.
+url: https://www.lunar.dev/pricing
+specificationVersion: '0.1'
+plans:
+  - name: Free
+    description: >-
+      Self-serve tier for individuals and small teams evaluating the platform.
+      Includes a single gateway instance (self-hosted or SaaS), basic MCP access
+      controls, a shared MCPX instance, and community support.
+    url: https://www.lunar.dev/pricing
+    price: '0'
+    unit: month
+    features:
+      - Single gateway (self-hosted or SaaS)
+      - Up to 3 connected APIs
+      - 100,000 Lunar Flow runs per gateway per month
+      - Control plane access
+      - Shared MCPX instance
+      - Basic access controls and tool groups
+      - Remote MCP authentication support
+      - Standard MCP catalog
+      - Activity monitoring and basic usage analytics
+      - Tool customization
+      - Community support
+    additionalFeatures:
+      fleetSize: 1 gateway
+      managedAPIs: 3
+      monthlyFlowRuns: 100000
+      supportTier: Community
+  - name: Team
+    description: >-
+      Production-ready tier for engineering teams running API and AI workloads
+      in production. Supports scalable gateway clusters, multi-gateway failover,
+      higher Flow run volumes, and production-grade support.
+    url: https://www.lunar.dev/pricing
+    price: '250'
+    unit: month per gateway
+    features:
+      - Scalable gateway clusters (self-hosted or on-premises)
+      - Up to 10 managed APIs
+      - 2,000,000 Lunar Flow runs per gateway per month (unlimited with automated controls)
+      - Multi-gateway clusters for failover
+      - Production support
+      - All Free tier features
+    additionalFeatures:
+      fleetSize: Scalable clusters
+      managedAPIs: 10
+      monthlyFlowRuns: 2000000
+      supportTier: Production
+  - name: Enterprise
+    description: >-
+      Custom-priced tier for organizations running AI agents and high-volume API
+      workloads in production. Includes dedicated gateway instances per
+      user/agent identity, unlimited managed APIs, private MCP registry, SSO/RBAC,
+      secrets management, full audit trails, and enterprise SLA support.
+    url: https://www.lunar.dev/pricing
+    price: Custom
+    unit: contact for quote
+    features:
+      - Dedicated gateway cluster per user/agent identity
+      - Unlimited managed external APIs
+      - Custom quotas for high-volume API workloads
+      - Self-hosted Kubernetes deployment
+      - Centralized MCPX control plane
+      - Private MCP registry and hosted MCP servers
+      - Agent inventory and autonomous agent support
+      - Full audit trail
+      - Secrets management with Vault integration
+      - SSO and RBAC via identity provider
+      - Risk and security dashboard
+      - Enterprise SLA support
+      - All Team tier features
+    additionalFeatures:
+      fleetSize: Cluster per identity
+      managedAPIs: Unlimited
+      monthlyFlowRuns: Custom
+      supportTier: Enterprise SLA
