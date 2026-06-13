@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lunar/main/json-schema/lunar-gateway-proxy-request.json",
+  "title": "Lunar Gateway Proxy Request Headers",
+  "description": "Schema for HTTP headers used when routing outbound API requests through the Lunar API Consumption Gateway on port 8000. The consuming application sets these headers to control routing, authentication forwarding, and consumer tagging.",
+  "type": "object",
+  "properties": {
+    "x-lunar-scheme": {
+      "type": "string",
+      "enum": ["http", "https"],
+      "description": "Overrides the target request scheme. Default is https."
+    },
+    "x-lunar-host": {
+      "type": "string",
+      "description": "Target host for the proxied request (e.g., api.stripe.com). Required for proper routing."
+    },
+    "x-lunar-consumer-tag": {
+      "type": "string",
+      "description": "Consumer identifier for traffic attribution, quota enforcement, and per-consumer policy application."
+    },
+    "x-lunar-retry-after": {
+      "type": "string",
+      "description": "Number of seconds to wait before retrying after a rate-limit response. Set by the gateway on 429 responses."
+    }
+  },
+  "required": ["x-lunar-host"]
+}

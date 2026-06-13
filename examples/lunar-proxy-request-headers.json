@@ -1,0 +1,6 @@
+{
+  "x-lunar-scheme": "https",
+  "x-lunar-host": "api.stripe.com",
+  "x-lunar-consumer-tag": "my-service-v2",
+  "Authorization": "Bearer sk_live_xxxxxxxxxxxx"
+}

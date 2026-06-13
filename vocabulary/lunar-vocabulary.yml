@@ -1,0 +1,143 @@
+vocabulary:
+  provider: Lunar
+  url: https://www.lunar.dev/
+  description: >-
+    Vocabulary of domain terms used across the Lunar API management and AI
+    control plane platform, covering gateway concepts, traffic shaping,
+    policy enforcement, and MCP governance.
+  terms:
+    - term: Flow
+      definition: >-
+        A YAML-defined traffic shaping rule that matches outbound API requests
+        by host, path, and method, and applies a sequence of processor steps to
+        requests and/or responses. Flows are the core configuration unit in
+        Lunar Streams mode.
+      url: https://docs.lunar.dev/api-gateway/flows/
+
+    - term: Processor
+      definition: >-
+        A reusable, named processing unit within a flow that performs a specific
+        action on API traffic (e.g., rate limiting, retry injection, circuit
+        breaking, quota enforcement). Processors can be referenced by multiple
+        flows and parameterized with key-value bindings.
+      url: https://docs.lunar.dev/api-gateway/flows/
+
+    - term: Policy
+      definition: >-
+        A YAML-based legacy traffic control rule applied by the Lunar proxy in
+        non-Streams (policies) mode. Policies define diagnosis and remedy
+        behaviors for matched API endpoints.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: Consumer Tag
+      definition: >-
+        An identifier (set via the x-lunar-consumer-tag HTTP header) that
+        attributes outbound API traffic to a specific consuming application,
+        service, or team. Used for per-consumer quota tracking and policy
+        enforcement.
+      url: https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
+
+    - term: Quota
+      definition: >-
+        A configurable limit on the number of API calls a consumer or the
+        entire gateway may make to a target API within a defined time window.
+        Quotas are enforced by the Lunar gateway and can be shared across
+        multiple consumers.
+      url: https://docs.lunar.dev/api-gateway/flows/
+
+    - term: Rate Limit
+      definition: >-
+        A traffic throttling policy that restricts the number of requests per
+        second or per time window to a target API endpoint. When exceeded, the
+        gateway returns a 429 response with a Retry-After header.
+      url: https://docs.lunar.dev/api-gateway/flows/
+
+    - term: Circuit Breaker
+      definition: >-
+        A resilience pattern implemented by the Lunar gateway that stops
+        forwarding requests to a target API when error rates exceed a
+        threshold, allowing the downstream service to recover before traffic
+        resumes.
+      url: https://docs.lunar.dev/api-gateway/flows/
+
+    - term: Priority Queue
+      definition: >-
+        A traffic management feature that assigns priority levels to different
+        consumers or request types, ensuring higher-priority requests are
+        processed first when the gateway is under load constraints.
+      url: https://docs.lunar.dev/api-gateway/flows/
+
+    - term: Remedy
+      definition: >-
+        In legacy policy mode, a remedy is an automated corrective action
+        applied by the gateway when a diagnosis (detection rule) triggers.
+        Examples include caching, rate limit headers injection, and request
+        blocking.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: Discovery
+      definition: >-
+        The automatic traffic observation feature of the Lunar gateway that
+        records which API endpoints are being called, their response codes,
+        latency, and metadata. Discovery state is accessible via /discover.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: MCPX Gateway
+      definition: >-
+        The Lunar Model Context Protocol (MCP) gateway that consolidates
+        multiple MCP servers into a single endpoint for AI agents. Provides
+        authentication, scoped permissions, secret forwarding, audit trails,
+        tool grouping, and risk evaluation for agentic workloads.
+      url: https://www.lunar.dev/product/ai-gateway
+
+    - term: Tool Group
+      definition: >-
+        A named collection of MCP tools within the MCPX gateway, used to
+        define scoped access permissions and apply role-based access control
+        to AI agent tool invocations.
+      url: https://docs.lunar.dev/
+
+    - term: Control Plane
+      definition: >-
+        The centralized management layer of the Lunar platform (accessible at
+        app.lunar.dev) that connects to gateway instances, provides traffic
+        visibility dashboards, and enables policy and flow management across
+        multiple gateway deployments.
+      url: https://app.lunar.dev
+
+    - term: HAProxy
+      definition: >-
+        The underlying load balancer and proxy that the Lunar engine integrates
+        with via SPOE (Stream Processing Offload Engine) to intercept, inspect,
+        and modify API traffic. The Lunar engine runs as an HAProxy SPOE agent.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: SPOE
+      definition: >-
+        Stream Processing Offload Engine — the HAProxy protocol used by the
+        Lunar engine to receive traffic metadata, make routing/enforcement
+        decisions, and instruct HAProxy on how to handle each request.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: Doctor
+      definition: >-
+        The built-in diagnostic subsystem of the Lunar engine that generates
+        periodic health reports covering gateway status, hub connectivity,
+        flows/policies state, and telemetry writer health. Accessible via
+        the /doctor admin endpoint.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: Tenant
+      definition: >-
+        The logical organizational unit within the Lunar platform, identified
+        by the TENANT_NAME environment variable. Each gateway instance belongs
+        to a tenant and reports metrics and discovery data under that tenant's
+        namespace.
+      url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+
+    - term: API Monetization
+      definition: >-
+        The capability of the Lunar platform to meter API usage per consumer
+        and enforce usage-based billing or cost allocation, enabling providers
+        and enterprises to track and charge for API consumption.
+      url: https://www.lunar.dev/pricing

@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lunar/main/json-schema/lunar-flows-configuration.json",
+  "title": "Lunar Flows Configuration",
+  "description": "Schema for Lunar Gateway flow-based traffic configuration. Flows define how outbound API traffic is intercepted, shaped, and governed through the Lunar proxy.",
+  "type": "object",
+  "properties": {
+    "flows": {
+      "type": "array",
+      "description": "List of flow definitions applied to matching API traffic",
+      "items": {
+        "$ref": "#/definitions/Flow"
+      }
+    },
+    "processors": {
+      "type": "object",
+      "description": "Reusable processor definitions referenced by flows",
+      "additionalProperties": {
+        "$ref": "#/definitions/Processor"
+      }
+    }
+  },
+  "definitions": {
+    "Flow": {
+      "type": "object",
+      "description": "A named flow that matches API requests and applies processing steps",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this flow"
+        },
+        "filter": {
+          "$ref": "#/definitions/FlowFilter",
+          "description": "Conditions that determine which requests this flow applies to"
+        },
+        "request": {
+          "type": "array",
+          "description": "Processing steps applied to matching requests",
+          "items": {
+            "$ref": "#/definitions/FlowStep"
+          }
+        },
+        "response": {
+          "type": "array",
+          "description": "Processing steps applied to matching responses",
+          "items": {
+            "$ref": "#/definitions/FlowStep"
+          }
+        }
+      }
+    },
+    "FlowFilter": {
+      "type": "object",
+      "description": "Filter criteria for matching API traffic to a flow",
+      "properties": {
+        "url": {
+          "type": "object",
+          "description": "URL-based matching criteria",
+          "properties": {
+            "host": {
+              "type": "string",
+              "description": "Target host to match (e.g., api.stripe.com)"
+            },
+            "path": {
+              "type": "string",
+              "description": "URL path pattern to match (supports wildcards)"
+            }
+          }
+        },
+        "method": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
+              }
+            }
+          ],
+          "description": "HTTP method(s) to match"
+        }
+      }
+    },
+    "FlowStep": {
+      "type": "object",
+      "description": "A single processing step in a flow (request or response)",
+      "required": ["processor"],
+      "properties": {
+        "processor": {
+          "type": "object",
+          "description": "Reference to a processor and its parameter bindings",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the processor to invoke"
+            },
+            "parameters": {
+              "type": "array",
+              "description": "Parameter bindings for the processor",
+              "items": {
+                "$ref": "#/definitions/ProcessorParameter"
+              }
+            }
+          }
+        },
+        "condition": {
+          "type": "string",
+          "description": "Optional condition expression determining when this step runs"
+        }
+      }
+    },
+    "ProcessorParameter": {
+      "type": "object",
+      "description": "A key-value parameter binding for a processor",
+      "required": ["key", "value"],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Parameter name"
+        },
+        "value": {
+          "description": "Parameter value (string, number, boolean, or object)"
+        }
+      }
+    },
+    "Processor": {
+      "type": "object",
+      "description": "A reusable processor definition",
+      "required": ["processor"],
+      "properties": {
+        "processor": {
+          "type": "string",
+          "description": "Built-in or custom processor type identifier"
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Default parameters for this processor",
+          "items": {
+            "$ref": "#/definitions/ProcessorParameter"
+          }
+        }
+      }
+    }
+  }
+}

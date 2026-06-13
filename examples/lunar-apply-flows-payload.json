@@ -1,0 +1,44 @@
+{
+  "flows": [
+    {
+      "id": "rate-limit-stripe",
+      "filter": {
+        "url": {
+          "host": "api.stripe.com"
+        },
+        "method": ["GET", "POST"]
+      },
+      "request": [
+        {
+          "processor": {
+            "name": "rateLimiter",
+            "parameters": [
+              { "key": "requests_per_second", "value": 10 },
+              { "key": "strategy", "value": "fixed-window" }
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "processor": {
+            "name": "retryAfter",
+            "parameters": [
+              { "key": "enabled", "value": true }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "processors": {
+    "rateLimiter": {
+      "processor": "LunarRateLimitingProcessor",
+      "parameters": []
+    },
+    "retryAfter": {
+      "processor": "LunarRetryAfterProcessor",
+      "parameters": []
+    }
+  }
+}

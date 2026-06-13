@@ -1,0 +1,174 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "lunar": "https://www.lunar.dev/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+
+    "Flow": {
+      "@id": "lunar:Flow",
+      "@type": "@id"
+    },
+    "flowId": {
+      "@id": "lunar:flowId",
+      "@type": "xsd:string"
+    },
+    "flowFilter": {
+      "@id": "lunar:flowFilter",
+      "@type": "@id"
+    },
+    "requestSteps": {
+      "@id": "lunar:requestSteps",
+      "@container": "@list"
+    },
+    "responseSteps": {
+      "@id": "lunar:responseSteps",
+      "@container": "@list"
+    },
+
+    "Processor": {
+      "@id": "lunar:Processor",
+      "@type": "@id"
+    },
+    "processorName": {
+      "@id": "lunar:processorName",
+      "@type": "xsd:string"
+    },
+    "processorType": {
+      "@id": "lunar:processorType",
+      "@type": "xsd:string"
+    },
+    "parameters": {
+      "@id": "lunar:parameters",
+      "@container": "@list"
+    },
+
+    "Policy": {
+      "@id": "lunar:Policy",
+      "@type": "@id"
+    },
+    "policyId": {
+      "@id": "lunar:policyId",
+      "@type": "xsd:string"
+    },
+
+    "ConsumerTag": {
+      "@id": "lunar:ConsumerTag",
+      "@type": "@id"
+    },
+    "consumerTag": {
+      "@id": "lunar:consumerTag",
+      "@type": "xsd:string"
+    },
+
+    "Quota": {
+      "@id": "lunar:Quota",
+      "@type": "@id"
+    },
+    "quotaLimit": {
+      "@id": "lunar:quotaLimit",
+      "@type": "xsd:integer"
+    },
+    "quotaWindow": {
+      "@id": "lunar:quotaWindow",
+      "@type": "xsd:string"
+    },
+
+    "RateLimit": {
+      "@id": "lunar:RateLimit",
+      "@type": "@id"
+    },
+    "requestsPerSecond": {
+      "@id": "lunar:requestsPerSecond",
+      "@type": "xsd:integer"
+    },
+    "rateLimitStrategy": {
+      "@id": "lunar:rateLimitStrategy",
+      "@type": "xsd:string"
+    },
+
+    "CircuitBreaker": {
+      "@id": "lunar:CircuitBreaker",
+      "@type": "@id"
+    },
+    "errorThreshold": {
+      "@id": "lunar:errorThreshold",
+      "@type": "xsd:decimal"
+    },
+
+    "MCPXGateway": {
+      "@id": "lunar:MCPXGateway",
+      "@type": "@id"
+    },
+    "mcpxEndpoint": {
+      "@id": "lunar:mcpxEndpoint",
+      "@type": "xsd:anyURI"
+    },
+
+    "ToolGroup": {
+      "@id": "lunar:ToolGroup",
+      "@type": "@id"
+    },
+    "toolGroupName": {
+      "@id": "lunar:toolGroupName",
+      "@type": "xsd:string"
+    },
+    "tools": {
+      "@id": "lunar:tools",
+      "@container": "@list"
+    },
+
+    "GatewayInstance": {
+      "@id": "lunar:GatewayInstance",
+      "@type": "@id"
+    },
+    "gatewayId": {
+      "@id": "lunar:gatewayId",
+      "@type": "xsd:string"
+    },
+    "tenantName": {
+      "@id": "lunar:tenantName",
+      "@type": "xsd:string"
+    },
+    "managed": {
+      "@id": "lunar:managed",
+      "@type": "xsd:boolean"
+    },
+    "adminPort": {
+      "@id": "lunar:adminPort",
+      "@type": "xsd:integer"
+    },
+
+    "DiscoveryState": {
+      "@id": "lunar:DiscoveryState",
+      "@type": "@id"
+    },
+    "discoveredEndpoints": {
+      "@id": "lunar:discoveredEndpoints",
+      "@container": "@list"
+    },
+
+    "DoctorReport": {
+      "@id": "lunar:DoctorReport",
+      "@type": "@id"
+    },
+    "hubConnected": {
+      "@id": "lunar:hubConnected",
+      "@type": "xsd:boolean"
+    },
+
+    "APIProvider": {
+      "@id": "schema:Service",
+      "@type": "@id"
+    },
+    "targetHost": {
+      "@id": "lunar:targetHost",
+      "@type": "xsd:string"
+    }
+  }
+}
