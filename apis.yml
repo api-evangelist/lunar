@@ -12,7 +12,7 @@ description: >-
   and circuit breakers.
 type: Index
 image: >-
-  https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/lunar/refs/heads/main/apis.yml
 created: '2026-06-13'
