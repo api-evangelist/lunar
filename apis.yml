@@ -51,7 +51,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
-      - type: QuickStart
+      - type: GettingStarted
         url: >-
           https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
       - type: ControlPlane
@@ -94,7 +94,7 @@ common:
     url: https://www.lunar.dev/lunar-blog
   - type: Pricing
     url: https://www.lunar.dev/pricing
-  - type: SignUp
+  - type: Signup
     url: https://app.lunar.dev
   - type: Discord
     url: https://discord.gg/T2VvD3hpxD
