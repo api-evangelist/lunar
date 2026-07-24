@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  title: Lunar API Consumption Gateway Admin Configuration Policies API
+  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  version: 1.0.0
+  contact:
+    name: Lunar Support
+    url: https://docs.lunar.dev/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:{adminPort}
+  description: Lunar Engine Admin API (local)
+  variables:
+    adminPort:
+      default: '8081'
+      description: Admin port set via ENGINE_ADMIN_PORT environment variable
+tags:
+- name: Policies
+  description: Manage Lunar Policies (legacy traffic control rules)
+paths:
+  /apply_policies:
+    post:
+      operationId: applyPolicies
+      summary: Apply policies configuration (legacy mode)
+      description: Applies a new policies configuration. Optionally accepts a raw policies YAML body to update the configuration before reloading from file. Used in legacy (non-flows/non-streams) mode only.
+      tags:
+      - Policies
+      requestBody:
+        required: false
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+              description: Raw policies YAML content (optional)
+      responses:
+        '200':
+          description: Policies applied successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Successfully applied policies from file
+        '422':
+          description: Failed to read body or apply/reload policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+  /validate_policies:
+    post:
+      operationId: validatePolicies
+      summary: Validate policies configuration (legacy mode)
+      description: Validates the current policies YAML configuration file without applying changes. Used in legacy (non-flows) mode only.
+      tags:
+      - Policies
+      responses:
+        '200':
+          description: Policies validated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Successfully validated policies from file
+        '422':
+          description: Failed to validate policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+  /revert_to_diagnosis_free:
+    post:
+      operationId: revertToDiagnosisFree
+      summary: Revert to diagnosis-free policy state (legacy mode)
+      description: Reverts the gateway's active policy configuration to a diagnosis-free baseline state, removing all active diagnosis/remediation overrides. Used in legacy (non-flows) mode only.
+      tags:
+      - Policies
+      responses:
+        '200':
+          description: Successfully reverted to diagnosis free state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Successfully reverted to diagnosis free
+        '422':
+          description: Failed to revert
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+  /revert_to_last_loaded:
+    post:
+      operationId: revertToLastLoaded
+      summary: Revert to last loaded policy state (legacy mode)
+      description: Reverts the gateway's active policy configuration to the last successfully loaded state, undoing any in-memory overrides. Used in legacy (non-flows) mode only.
+      tags:
+      - Policies
+      responses:
+        '200':
+          description: Successfully reverted to last loaded state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Successfully reverted to last loaded
+        '422':
+          description: Failed to revert
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      description: Generic success message response
+      properties:
+        msg:
+          type: string
+          description: Human-readable success message
+      required:
+      - msg
+    ErrorResponse:
+      type: object
+      description: Error response with message and optional error detail
+      properties:
+        msg:
+          type: string
+          description: Human-readable error message
+        error:
+          type: string
+          description: Underlying error string
+      required:
+      - msg
+externalDocs:
+  description: Lunar API Gateway Documentation
+  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/

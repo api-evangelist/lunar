@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  title: Lunar API Consumption Gateway Admin Configuration Flows API
+  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  version: 1.0.0
+  contact:
+    name: Lunar Support
+    url: https://docs.lunar.dev/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:{adminPort}
+  description: Lunar Engine Admin API (local)
+  variables:
+    adminPort:
+      default: '8081'
+      description: Admin port set via ENGINE_ADMIN_PORT environment variable
+tags:
+- name: Flows
+  description: Manage Lunar Flows (streams-based traffic shaping rules)
+paths:
+  /load_flows:
+    post:
+      operationId: loadFlows
+      summary: Reload flows configuration from disk
+      description: Triggers an in-process reload of the Flows configuration from the file system. Used after flows YAML files have been updated on disk. Requires the gateway to be running in streams (flows) mode.
+      tags:
+      - Flows
+      responses:
+        '200':
+          description: Flows loaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Successfully loaded flows
+        '400':
+          description: Failed to reload flows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+  /validate_flows:
+    post:
+      operationId: validateFlows
+      summary: Validate flows configuration
+      description: Performs a dry-run validation of the current flows YAML configuration without applying changes. Returns validation errors if the configuration is invalid.
+      tags:
+      - Flows
+      responses:
+        '200':
+          description: Flows validation succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Validation succeeded
+        '422':
+          description: Validation failed with details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+  /apply_flows:
+    put:
+      operationId: applyFlows
+      summary: Apply flows configuration payload
+      description: Applies a new flows configuration payload sent in the request body. The payload is parsed, saved to disk, and the flows engine is reloaded. On failure, the previous configuration is restored. Only one apply operation may run at a time (returns 423 if already processing).
+      tags:
+      - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowsConfigurationPayload'
+      responses:
+        '200':
+          description: Flows configuration update initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Lunar Gateway config is being updated...
+        '400':
+          description: Failed to decode or parse incoming data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Failed to apply or reload flows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '423':
+          description: Another apply flows request is already in progress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal error saving or backing up configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /on_haproxy_error:
+    put:
+      operationId: reportHAProxyError
+      summary: Report HAProxy transaction errors
+      description: Called by HAProxy to notify the engine of failed transactions. The engine uses this to trigger error-handling logic within the active flows/streams.
+      tags:
+      - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OnErrorPayload'
+      responses:
+        '200':
+          description: Error logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                msg: Error logged successfully
+        '400':
+          description: Failed to decode incoming error data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+components:
+  schemas:
+    OnErrorPayload:
+      type: object
+      description: Payload from HAProxy reporting failed transactions
+      properties:
+        failedTransactions:
+          type: object
+          description: Map of failed transaction IDs to error details
+          additionalProperties:
+            type: object
+            additionalProperties: true
+      required:
+      - failedTransactions
+    SuccessResponse:
+      type: object
+      description: Generic success message response
+      properties:
+        msg:
+          type: string
+          description: Human-readable success message
+      required:
+      - msg
+    FlowsConfigurationPayload:
+      type: object
+      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      description: Error response with message and optional error detail
+      properties:
+        msg:
+          type: string
+          description: Human-readable error message
+        error:
+          type: string
+          description: Underlying error string
+      required:
+      - msg
+externalDocs:
+  description: Lunar API Gateway Documentation
+  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/

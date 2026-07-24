@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Lunar API Consumption Gateway Admin Configuration Handshake API
+  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  version: 1.0.0
+  contact:
+    name: Lunar Support
+    url: https://docs.lunar.dev/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:{adminPort}
+  description: Lunar Engine Admin API (local)
+  variables:
+    adminPort:
+      default: '8081'
+      description: Admin port set via ENGINE_ADMIN_PORT environment variable
+tags:
+- name: Handshake
+  description: Gateway health and connectivity check
+paths:
+  /handshake:
+    get:
+      operationId: getHandshake
+      summary: Gateway handshake / health check
+      description: Returns gateway managed status. Used by the control plane to verify connectivity and whether the gateway instance is managed (LUNAR_MANAGED=true).
+      tags:
+      - Handshake
+      responses:
+        '200':
+          description: Handshake successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandshakeResponse'
+              example:
+                managed: true
+        '405':
+          description: Method not allowed
+components:
+  schemas:
+    HandshakeResponse:
+      type: object
+      description: Response from the gateway handshake endpoint
+      properties:
+        managed:
+          type: boolean
+          description: Whether this gateway instance is managed (LUNAR_MANAGED=true)
+      required:
+      - managed
+externalDocs:
+  description: Lunar API Gateway Documentation
+  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/

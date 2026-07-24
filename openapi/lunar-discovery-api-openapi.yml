@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: Lunar API Consumption Gateway Admin Configuration Discovery API
+  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  version: 1.0.0
+  contact:
+    name: Lunar Support
+    url: https://docs.lunar.dev/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:{adminPort}
+  description: Lunar Engine Admin API (local)
+  variables:
+    adminPort:
+      default: '8081'
+      description: Admin port set via ENGINE_ADMIN_PORT environment variable
+tags:
+- name: Discovery
+  description: API discovery and remedy state reporting
+paths:
+  /discover:
+    get:
+      operationId: getDiscoveryState
+      summary: Retrieve API discovery state
+      description: Returns the current discovery state JSON file, which contains observed API traffic patterns, endpoints accessed, and related metadata collected by the gateway.
+      tags:
+      - Discovery
+      responses:
+        '200':
+          description: Discovery state data returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONFileResponse'
+        '422':
+          description: Failed to read discovery state file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+  /remedy_stats:
+    get:
+      operationId: getRemedyStats
+      summary: Retrieve remedy/policy enforcement statistics
+      description: Returns the remedy state JSON file containing statistics about policy enforcement actions taken by the gateway (rate limiting, retries, circuit breakers, etc.).
+      tags:
+      - Discovery
+      responses:
+        '200':
+          description: Remedy stats data returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONFileResponse'
+        '422':
+          description: Failed to read remedy state file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+components:
+  schemas:
+    JSONFileResponse:
+      type: object
+      description: Wrapper response containing JSON file content as a string
+      properties:
+        data:
+          type: string
+          description: JSON file contents serialized as a string
+      required:
+      - data
+    ErrorResponse:
+      type: object
+      description: Error response with message and optional error detail
+      properties:
+        msg:
+          type: string
+          description: Human-readable error message
+        error:
+          type: string
+          description: Underlying error string
+      required:
+      - msg
+externalDocs:
+  description: Lunar API Gateway Documentation
+  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/

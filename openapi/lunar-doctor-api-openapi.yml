@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Lunar API Consumption Gateway Admin Configuration Doctor API
+  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  version: 1.0.0
+  contact:
+    name: Lunar Support
+    url: https://docs.lunar.dev/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:{adminPort}
+  description: Lunar Engine Admin API (local)
+  variables:
+    adminPort:
+      default: '8081'
+      description: Admin port set via ENGINE_ADMIN_PORT environment variable
+tags:
+- name: Doctor
+  description: Gateway diagnostic reporting
+paths:
+  /doctor:
+    get:
+      operationId: getDoctorReport
+      summary: Retrieve gateway diagnostic report
+      description: Runs the Doctor diagnostic checks and returns a JSON report covering gateway health, connected services, hub communication status, flows/policies state, and telemetry writer status.
+      tags:
+      - Doctor
+      responses:
+        '200':
+          description: Doctor report returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorReport'
+        '422':
+          description: Doctor not initialized or failed to encode report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method not allowed
+components:
+  schemas:
+    DoctorReport:
+      type: object
+      description: Diagnostic report from the Doctor service. Contains gateway health information including streams/policies status, hub connectivity, and telemetry writer health.
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      description: Error response with message and optional error detail
+      properties:
+        msg:
+          type: string
+          description: Human-readable error message
+        error:
+          type: string
+          description: Underlying error string
+      required:
+      - msg
+externalDocs:
+  description: Lunar API Gateway Documentation
+  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
