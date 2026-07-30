@@ -11,7 +11,19 @@ description: >-
   controls, and advanced traffic shaping including retries, priority queues,
   and circuit breakers.
 type: Index
-image: >-
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lunar.png
   https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/lunar/refs/heads/main/apis.yml
@@ -31,52 +43,109 @@ tags:
   - Cost Controls
   - Observability
 apis:
-  - aid: lunar:api-consumption-gateway
-    name: Lunar API Consumption Gateway
-    description: >-
-      The Lunar API Consumption Gateway is a proxy-based infrastructure layer
-      that routes outbound HTTP/HTTPS API traffic through configurable YAML-based
-      flows. It enforces rate limits, quota policies, priority queues, circuit
-      breakers, and endpoint access controls without requiring code changes in
-      consuming applications. Requests are routed by setting x-lunar-scheme,
-      x-lunar-host, and x-lunar-consumer-tag headers and targeting the gateway
-      on port 8000.
-    humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
-    baseURL: https://app.lunar.dev
-    tags:
-      - API Gateway
-      - Traffic Management
-      - Rate Limiting
-      - Quota Enforcement
-    properties:
-      - type: Documentation
-        url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
-      - type: GettingStarted
-        url: >-
-          https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
-      - type: ControlPlane
-        url: https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-control-plane/
-  - aid: lunar:mcpx-gateway
-    name: Lunar MCPX Gateway
-    description: >-
-      The Lunar MCPX Gateway is an agent-native Model Context Protocol gateway
-      that governs tool invocation for AI agents. It consolidates multiple MCP
-      servers into a single endpoint, providing authentication, scoped
-      permissions, secret forwarding, audit trails, and risk evaluation for
-      AI agent workloads. The MCPX gateway supports role-based access control,
-      tool groups, tool customization, and remote MCP authentication.
-    humanURL: https://www.lunar.dev/product/ai-gateway
-    baseURL: https://app.lunar.dev
-    tags:
-      - MCP Gateway
-      - AI Governance
-      - Agent Security
-      - Tool Access Control
-    properties:
-      - type: Documentation
-        url: https://docs.lunar.dev/
-      - type: ProductPage
-        url: https://www.lunar.dev/product/ai-gateway
+- aid: lunar:api-consumption-gateway
+  name: Lunar API Consumption Gateway
+  description: >-
+    The Lunar API Consumption Gateway is a proxy-based infrastructure layer that routes outbound HTTP/HTTPS
+    API traffic through configurable YAML-based flows. It enforces rate limits, quota policies, priority
+    queues, circuit breakers, and endpoint access controls without requiring code changes in consuming
+    applications. Requests are routed by setting x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag
+    headers and targeting the gateway on port 8000.
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - API Gateway
+  - Traffic Management
+  - Rate Limiting
+  - Quota Enforcement
+  properties:
+  - type: Documentation
+    url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  - type: GettingStarted
+    url: >-
+      https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
+  - type: ControlPlane
+    url: >-
+      https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-control-plane/
+- aid: lunar:mcpx-gateway
+  name: Lunar MCPX Gateway
+  description: >-
+    The Lunar MCPX Gateway is an agent-native Model Context Protocol gateway that governs tool invocation
+    for AI agents. It consolidates multiple MCP servers into a single endpoint, providing authentication,
+    scoped permissions, secret forwarding, audit trails, and risk evaluation for AI agent workloads. The
+    MCPX gateway supports role-based access control, tool groups, tool customization, and remote MCP authentication.
+  humanURL: https://www.lunar.dev/product/ai-gateway
+  baseURL: https://app.lunar.dev
+  tags:
+  - MCP Gateway
+  - AI Governance
+  - Agent Security
+  - Tool Access Control
+  properties:
+  - type: Documentation
+    url: https://docs.lunar.dev/
+  - type: ProductPage
+    url: https://www.lunar.dev/product/ai-gateway
+- aid: lunar:lunar-configuration-api
+  name: Lunar Configuration API
+  description: Contract-based configuration management
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-configuration-api-openapi.yml
+- aid: lunar:lunar-discovery-api
+  name: Lunar Discovery API
+  description: API discovery and remedy state reporting
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-discovery-api-openapi.yml
+- aid: lunar:lunar-doctor-api
+  name: Lunar Doctor API
+  description: Gateway diagnostic reporting
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Doctor
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-doctor-api-openapi.yml
+- aid: lunar:lunar-flows-api
+  name: Lunar Flows API
+  description: Manage Lunar Flows (streams-based traffic shaping rules)
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-flows-api-openapi.yml
+- aid: lunar:lunar-handshake-api
+  name: Lunar Handshake API
+  description: Gateway health and connectivity check
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Handshake
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-handshake-api-openapi.yml
+- aid: lunar:lunar-policies-api
+  name: Lunar Policies API
+  description: Manage Lunar Policies (legacy traffic control rules)
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-policies-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/lunar-agentic-access.yml
