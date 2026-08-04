@@ -1,0 +1,528 @@
+openapi: 3.0.3
+info:
+  title: Lunar API Consumption Gateway Admin API
+  description: >-
+    Administrative REST API for the Lunar API Consumption Gateway (lunar-engine).
+    This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for
+    managing flows, policies, configuration, discovery state, and gateway health.
+    The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port
+    8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag
+    headers. This spec covers the management/admin plane.
+  version: 1.0.0
+  contact:
+    name: Lunar Support
+    url: https://docs.lunar.dev/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+externalDocs:
+  description: Lunar API Gateway Documentation
+  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+servers:
+  - url: http://localhost:{adminPort}
+    description: Lunar Engine Admin API (local)
+    variables:
+      adminPort:
+        default: "8081"
+        description: Admin port set via ENGINE_ADMIN_PORT environment variable
+tags:
+  - name: Handshake
+    description: Gateway health and connectivity check
+  - name: Flows
+    description: Manage Lunar Flows (streams-based traffic shaping rules)
+  - name: Policies
+    description: Manage Lunar Policies (legacy traffic control rules)
+  - name: Discovery
+    description: API discovery and remedy state reporting
+  - name: Doctor
+    description: Gateway diagnostic reporting
+  - name: Configuration
+    description: Contract-based configuration management
+paths:
+  /handshake:
+    get:
+      operationId: getHandshake
+      summary: Gateway handshake / health check
+      description: >-
+        Returns gateway managed status. Used by the control plane to verify
+        connectivity and whether the gateway instance is managed (LUNAR_MANAGED=true).
+      tags:
+        - Handshake
+      responses:
+        "200":
+          description: Handshake successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HandshakeResponse"
+              example:
+                managed: true
+        "405":
+          description: Method not allowed
+  /doctor:
+    get:
+      operationId: getDoctorReport
+      summary: Retrieve gateway diagnostic report
+      description: >-
+        Runs the Doctor diagnostic checks and returns a JSON report covering
+        gateway health, connected services, hub communication status, flows/policies
+        state, and telemetry writer status.
+      tags:
+        - Doctor
+      responses:
+        "200":
+          description: Doctor report returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DoctorReport"
+        "422":
+          description: Doctor not initialized or failed to encode report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /discover:
+    get:
+      operationId: getDiscoveryState
+      summary: Retrieve API discovery state
+      description: >-
+        Returns the current discovery state JSON file, which contains observed
+        API traffic patterns, endpoints accessed, and related metadata collected
+        by the gateway.
+      tags:
+        - Discovery
+      responses:
+        "200":
+          description: Discovery state data returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JSONFileResponse"
+        "422":
+          description: Failed to read discovery state file
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /remedy_stats:
+    get:
+      operationId: getRemedyStats
+      summary: Retrieve remedy/policy enforcement statistics
+      description: >-
+        Returns the remedy state JSON file containing statistics about policy
+        enforcement actions taken by the gateway (rate limiting, retries, circuit
+        breakers, etc.).
+      tags:
+        - Discovery
+      responses:
+        "200":
+          description: Remedy stats data returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JSONFileResponse"
+        "422":
+          description: Failed to read remedy state file
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /load_flows:
+    post:
+      operationId: loadFlows
+      summary: Reload flows configuration from disk
+      description: >-
+        Triggers an in-process reload of the Flows configuration from the file
+        system. Used after flows YAML files have been updated on disk. Requires
+        the gateway to be running in streams (flows) mode.
+      tags:
+        - Flows
+      responses:
+        "200":
+          description: Flows loaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Successfully loaded flows"
+        "400":
+          description: Failed to reload flows
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /validate_flows:
+    post:
+      operationId: validateFlows
+      summary: Validate flows configuration
+      description: >-
+        Performs a dry-run validation of the current flows YAML configuration
+        without applying changes. Returns validation errors if the configuration
+        is invalid.
+      tags:
+        - Flows
+      responses:
+        "200":
+          description: Flows validation succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Validation succeeded"
+        "422":
+          description: Validation failed with details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /apply_flows:
+    put:
+      operationId: applyFlows
+      summary: Apply flows configuration payload
+      description: >-
+        Applies a new flows configuration payload sent in the request body.
+        The payload is parsed, saved to disk, and the flows engine is reloaded.
+        On failure, the previous configuration is restored. Only one apply
+        operation may run at a time (returns 423 if already processing).
+      tags:
+        - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FlowsConfigurationPayload"
+      responses:
+        "200":
+          description: Flows configuration update initiated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Lunar Gateway config is being updated..."
+        "400":
+          description: Failed to decode or parse incoming data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Failed to apply or reload flows
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "423":
+          description: Another apply flows request is already in progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal error saving or backing up configuration
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /on_haproxy_error:
+    put:
+      operationId: reportHAProxyError
+      summary: Report HAProxy transaction errors
+      description: >-
+        Called by HAProxy to notify the engine of failed transactions. The engine
+        uses this to trigger error-handling logic within the active flows/streams.
+      tags:
+        - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OnErrorPayload"
+      responses:
+        "200":
+          description: Error logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Error logged successfully"
+        "400":
+          description: Failed to decode incoming error data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /configuration:
+    post:
+      operationId: applyConfiguration
+      summary: Apply contract-based configuration
+      description: >-
+        Applies a contract-based configuration operation (get or set) to the
+        gateway. Supports reading and writing gateway configuration via a
+        structured contract payload. Triggers flows reload on write operations.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContractPayload"
+      responses:
+        "200":
+          description: Configuration applied successfully, returns response payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JSONFileResponse"
+        "400":
+          description: Failed to decode or parse incoming data, or no data provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Failed to reload flows after config change
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "423":
+          description: Another configuration request is already in progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal error applying or marshalling configuration
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /apply_policies:
+    post:
+      operationId: applyPolicies
+      summary: Apply policies configuration (legacy mode)
+      description: >-
+        Applies a new policies configuration. Optionally accepts a raw policies
+        YAML body to update the configuration before reloading from file.
+        Used in legacy (non-flows/non-streams) mode only.
+      tags:
+        - Policies
+      requestBody:
+        required: false
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+              description: Raw policies YAML content (optional)
+      responses:
+        "200":
+          description: Policies applied successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Successfully applied policies from file"
+        "422":
+          description: Failed to read body or apply/reload policies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /validate_policies:
+    post:
+      operationId: validatePolicies
+      summary: Validate policies configuration (legacy mode)
+      description: >-
+        Validates the current policies YAML configuration file without applying
+        changes. Used in legacy (non-flows) mode only.
+      tags:
+        - Policies
+      responses:
+        "200":
+          description: Policies validated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Successfully validated policies from file"
+        "422":
+          description: Failed to validate policies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /revert_to_diagnosis_free:
+    post:
+      operationId: revertToDiagnosisFree
+      summary: Revert to diagnosis-free policy state (legacy mode)
+      description: >-
+        Reverts the gateway's active policy configuration to a diagnosis-free
+        baseline state, removing all active diagnosis/remediation overrides.
+        Used in legacy (non-flows) mode only.
+      tags:
+        - Policies
+      responses:
+        "200":
+          description: Successfully reverted to diagnosis free state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Successfully reverted to diagnosis free"
+        "422":
+          description: Failed to revert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /revert_to_last_loaded:
+    post:
+      operationId: revertToLastLoaded
+      summary: Revert to last loaded policy state (legacy mode)
+      description: >-
+        Reverts the gateway's active policy configuration to the last successfully
+        loaded state, undoing any in-memory overrides. Used in legacy (non-flows)
+        mode only.
+      tags:
+        - Policies
+      responses:
+        "200":
+          description: Successfully reverted to last loaded state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+              example:
+                msg: "Successfully reverted to last loaded"
+        "422":
+          description: Failed to revert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+components:
+  schemas:
+    HandshakeResponse:
+      type: object
+      description: Response from the gateway handshake endpoint
+      properties:
+        managed:
+          type: boolean
+          description: Whether this gateway instance is managed (LUNAR_MANAGED=true)
+      required:
+        - managed
+    SuccessResponse:
+      type: object
+      description: Generic success message response
+      properties:
+        msg:
+          type: string
+          description: Human-readable success message
+      required:
+        - msg
+    ErrorResponse:
+      type: object
+      description: Error response with message and optional error detail
+      properties:
+        msg:
+          type: string
+          description: Human-readable error message
+        error:
+          type: string
+          description: Underlying error string
+      required:
+        - msg
+    JSONFileResponse:
+      type: object
+      description: Wrapper response containing JSON file content as a string
+      properties:
+        data:
+          type: string
+          description: JSON file contents serialized as a string
+      required:
+        - data
+    DoctorReport:
+      type: object
+      description: >-
+        Diagnostic report from the Doctor service. Contains gateway health
+        information including streams/policies status, hub connectivity,
+        and telemetry writer health.
+      additionalProperties: true
+    FlowsConfigurationPayload:
+      type: object
+      description: >-
+        Configuration payload for the /apply_flows endpoint. Contains flow
+        definitions to be applied to the gateway. The exact structure is
+        defined by the Lunar Flows YAML schema.
+      additionalProperties: true
+    OnErrorPayload:
+      type: object
+      description: Payload from HAProxy reporting failed transactions
+      properties:
+        failedTransactions:
+          type: object
+          description: Map of failed transaction IDs to error details
+          additionalProperties:
+            type: object
+            additionalProperties: true
+      required:
+        - failedTransactions
+    ContractPayload:
+      type: object
+      description: >-
+        Contract-based configuration payload for the /configuration endpoint.
+        Supports get and set operations on gateway configuration resources.
+      additionalProperties: true
+  headers:
+    x-lunar-scheme:
+      description: >-
+        Proxy header: overrides the scheme (http or https) for the outbound
+        request routed through the Lunar gateway on port 8000.
+      schema:
+        type: string
+        enum:
+          - http
+          - https
+    x-lunar-host:
+      description: >-
+        Proxy header: specifies the target host for the outbound request routed
+        through the Lunar gateway on port 8000.
+      schema:
+        type: string
+    x-lunar-consumer-tag:
+      description: >-
+        Proxy header: identifies the consuming application or service for
+        traffic attribution, quota tracking, and policy enforcement.
+      schema:
+        type: string

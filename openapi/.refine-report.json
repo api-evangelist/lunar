@@ -1,0 +1,24 @@
+{
+  "provider": "lunar",
+  "sources": [
+    "lunar-configuration-api-openapi.yml",
+    "lunar-discovery-api-openapi.yml",
+    "lunar-doctor-api-openapi.yml",
+    "lunar-flows-api-openapi.yml",
+    "lunar-handshake-api-openapi.yml",
+    "lunar-policies-api-openapi.yml"
+  ],
+  "outputs": [
+    "lunar-configuration-api-openapi.yml",
+    "lunar-discovery-api-openapi.yml",
+    "lunar-doctor-api-openapi.yml",
+    "lunar-flows-api-openapi.yml",
+    "lunar-handshake-api-openapi.yml",
+    "lunar-policies-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
