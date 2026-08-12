@@ -137,6 +137,17 @@ apis:
   - type: OpenAPI
     url: openapi/lunar-policies-api-openapi.yml
 common:
+- type: IssueTracker
+  url: https://github.com/TheLunarCompany/lunar/issues
+- type: Releases
+  url: https://github.com/TheLunarCompany/lunar/releases
+- type: CodeOfConduct
+  url: https://github.com/TheLunarCompany/lunar/blob/main/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/TheLunarCompany/lunar/blob/main/CONTRIBUTING.md
+- type: License
+  name: MIT
+  url: https://github.com/TheLunarCompany/lunar/blob/main/LICENSE
 - type: AgenticAccess
   url: agentic-access/lunar-agentic-access.yml
 - type: DomainSecurity
