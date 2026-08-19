@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lunar API Consumption Gateway Admin Configuration Handshake API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Handshake",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gateway handshake / health check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:{adminPort}/handshake"
+          },
+          "docs": "Returns gateway managed status. Used by the control plane to verify connectivity and whether the gateway instance is managed (LUNAR_MANAGED=true)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

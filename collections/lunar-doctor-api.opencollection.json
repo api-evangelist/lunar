@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lunar API Consumption Gateway Admin Configuration Doctor API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Doctor",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve gateway diagnostic report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:{adminPort}/doctor"
+          },
+          "docs": "Runs the Doctor diagnostic checks and returns a JSON report covering gateway health, connected services, hub communication status, flows/policies state, and telemetry writer status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

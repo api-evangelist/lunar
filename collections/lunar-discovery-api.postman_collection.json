@@ -1,0 +1,365 @@
+{
+  "item": [
+    {
+      "id": "28ddd75c-d566-4b19-8cd0-ba2150dc34a6",
+      "name": "Discovery",
+      "description": {
+        "content": "API discovery and remedy state reporting",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7d0122e0-f934-4dc7-b593-5f4ee23b3279",
+          "name": "Retrieve API discovery state",
+          "request": {
+            "name": "Retrieve API discovery state",
+            "description": {
+              "content": "Returns the current discovery state JSON file, which contains observed API traffic patterns, endpoints accessed, and related metadata collected by the gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discover"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cdb92aa-856c-4f52-b2c3-e1ca6a551e0d",
+              "name": "Discovery state data returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c9b146c-2729-4e3f-a82b-4f23f5f4e09c",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "016c2b11-22d8-4546-85a2-a58d857af0ea",
+              "name": "Failed to read discovery state file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6791ed8-ee60-4430-9757-260a8e9e6621",
+          "name": "Retrieve remedy/policy enforcement statistics",
+          "request": {
+            "name": "Retrieve remedy/policy enforcement statistics",
+            "description": {
+              "content": "Returns the remedy state JSON file containing statistics about policy enforcement actions taken by the gateway (rate limiting, retries, circuit breakers, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "remedy_stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e9ae685f-75b3-4dda-a576-e5ecaf96a3ac",
+              "name": "Remedy stats data returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "remedy_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d5e1034-81ab-443c-bd27-58ebb6d91bb1",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "remedy_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fbc9b2fd-7ea4-467e-b204-224c929c03aa",
+              "name": "Failed to read remedy state file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "remedy_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8081",
+      "key": "adminPort"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:{{adminPort}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "177002d6-abf8-4d69-abd9-1113501ab41b",
+    "name": "Lunar API Consumption Gateway Admin Configuration Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.\n\nContact Support:\n Name: Lunar Support",
+      "type": "text/plain"
+    }
+  }
+}

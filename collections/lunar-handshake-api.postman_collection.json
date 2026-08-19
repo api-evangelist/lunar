@@ -1,0 +1,161 @@
+{
+  "item": [
+    {
+      "id": "a185d486-0142-4398-9828-29b2cdcde2d7",
+      "name": "Handshake",
+      "description": {
+        "content": "Gateway health and connectivity check",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c78dccb9-4598-41d6-83f8-1372e0f38ee9",
+          "name": "Gateway handshake / health check",
+          "request": {
+            "name": "Gateway handshake / health check",
+            "description": {
+              "content": "Returns gateway managed status. Used by the control plane to verify connectivity and whether the gateway instance is managed (LUNAR_MANAGED=true).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "handshake"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eab9c686-6d00-4973-80dc-8c55d4a1aac9",
+              "name": "Handshake successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "handshake"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"managed\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0da5da23-0a51-4de6-9daa-f589cf91173c",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "handshake"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8081",
+      "key": "adminPort"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:{{adminPort}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7a23f69c-35c5-4acc-ab67-92f8d5e574a2",
+    "name": "Lunar API Consumption Gateway Admin Configuration Handshake API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.\n\nContact Support:\n Name: Lunar Support",
+      "type": "text/plain"
+    }
+  }
+}

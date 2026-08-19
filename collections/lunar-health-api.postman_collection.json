@@ -1,0 +1,131 @@
+{
+  "item": [
+    {
+      "id": "e062a45a-0040-41df-9e83-1c091616cfc2",
+      "name": "Health",
+      "description": {
+        "content": "Gateway health monitoring endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4bdc8940-ccdc-48e6-9268-b282c5706462",
+          "name": "Lunar.dev Check gateway health",
+          "request": {
+            "name": "Lunar.dev Check gateway health",
+            "description": {
+              "content": "Returns the health status of the Lunar Gateway. A 200 response indicates that the gateway is running and healthy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthcheck"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40cbffbc-8648-4686-b967-7aee5d93be91",
+              "name": "Gateway is healthy and running.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"healthy\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "752db70e-6b5a-4271-8c1a-d94bcd888c88",
+              "name": "Gateway is unhealthy or not ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8040",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cdc52978-5ae2-43e4-900d-85dc5d9a5ad6",
+    "name": "Lunar.dev Gateway Admin Discovery Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Lunar.dev Gateway Admin API provides administrative endpoints for managing and monitoring the Lunar API Consumption Gateway. The gateway acts as an egress proxy for third-party API traffic, providing visibility, control, and performance optimization. The admin API enables health monitoring, endpoint discovery, flow validation, and policy management for the running gateway instance.\n\nContact Support:\n Name: Lunar.dev",
+      "type": "text/plain"
+    }
+  }
+}

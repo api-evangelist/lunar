@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lunar API Consumption Gateway Admin Configuration API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Apply contract-based configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/configuration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a contract-based configuration operation (get or set) to the gateway. Supports reading and writing gateway configuration via a structured contract payload. Triggers flows reload on write operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

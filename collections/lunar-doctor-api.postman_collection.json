@@ -1,0 +1,203 @@
+{
+  "item": [
+    {
+      "id": "8028e2f8-4f07-406e-aa11-73303e2e2f23",
+      "name": "Doctor",
+      "description": {
+        "content": "Gateway diagnostic reporting",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "295df383-1d69-4250-b1c2-856d1245f48d",
+          "name": "Retrieve gateway diagnostic report",
+          "request": {
+            "name": "Retrieve gateway diagnostic report",
+            "description": {
+              "content": "Runs the Doctor diagnostic checks and returns a JSON report covering gateway health, connected services, hub communication status, flows/policies state, and telemetry writer status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "doctor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34b36282-1c18-46f9-9e36-5caef930164a",
+              "name": "Doctor report returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "doctor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 6334.224007928917,\n  \"key_1\": \"string\",\n  \"key_2\": false,\n  \"key_3\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bb91f49-645e-4b89-8a5c-8bcda0d6b545",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "doctor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5cc2be34-31fc-4793-bf9a-a500c4168e80",
+              "name": "Doctor not initialized or failed to encode report",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "doctor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8081",
+      "key": "adminPort"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:{{adminPort}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4d1c4cc9-3146-41b5-ab13-86871f2d62b0",
+    "name": "Lunar API Consumption Gateway Admin Configuration Doctor API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.\n\nContact Support:\n Name: Lunar Support",
+      "type": "text/plain"
+    }
+  }
+}

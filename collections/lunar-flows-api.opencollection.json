@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lunar API Consumption Gateway Admin Configuration Flows API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Reload flows configuration from disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/load_flows"
+          },
+          "docs": "Triggers an in-process reload of the Flows configuration from the file system. Used after flows YAML files have been updated on disk. Requires the gateway to be running in streams (flows) mode."
+        },
+        {
+          "info": {
+            "name": "Validate flows configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/validate_flows"
+          },
+          "docs": "Performs a dry-run validation of the current flows YAML configuration without applying changes. Returns validation errors if the configuration is invalid."
+        },
+        {
+          "info": {
+            "name": "Apply flows configuration payload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:{adminPort}/apply_flows",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a new flows configuration payload sent in the request body. The payload is parsed, saved to disk, and the flows engine is reloaded. On failure, the previous configuration is restored. Only one apply operation may run at a time (returns 423 if already processing)."
+        },
+        {
+          "info": {
+            "name": "Report HAProxy transaction errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:{adminPort}/on_haproxy_error",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Called by HAProxy to notify the engine of failed transactions. The engine uses this to trigger error-handling logic within the active flows/streams."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

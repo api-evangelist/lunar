@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lunar API Consumption Gateway Admin Configuration Discovery API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve API discovery state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:{adminPort}/discover"
+          },
+          "docs": "Returns the current discovery state JSON file, which contains observed API traffic patterns, endpoints accessed, and related metadata collected by the gateway."
+        },
+        {
+          "info": {
+            "name": "Retrieve remedy/policy enforcement statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:{adminPort}/remedy_stats"
+          },
+          "docs": "Returns the remedy state JSON file containing statistics about policy enforcement actions taken by the gateway (rate limiting, retries, circuit breakers, etc.)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

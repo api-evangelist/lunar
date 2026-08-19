@@ -1,0 +1,1163 @@
+{
+  "item": [
+    {
+      "id": "841f755a-3d40-4dea-be29-a662c56e3421",
+      "name": "Proxy",
+      "description": {
+        "content": "Proxy endpoints for routing third-party API traffic through the Lunar Gateway with policy enforcement, traffic controls, and observability.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f220a99f-e7e7-40e7-8e79-6202a1561577",
+          "name": "Lunar.dev Proxy GET request",
+          "request": {
+            "name": "Lunar.dev Proxy GET request",
+            "description": {
+              "content": "Forwards a GET request to the target API host specified in the x-lunar-host header. The Lunar Gateway applies any configured flows and policies before forwarding the request and returns the response from the upstream API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                "key": "x-lunar-host",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                "key": "x-lunar-consumer-tag",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf44716a-68bd-4a96-9f07-e0998d2c1af0",
+              "name": "Proxied response from the upstream API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70f40df2-3a93-4fe2-bab6-90503f40156e",
+              "name": "Bad gateway - upstream API is unreachable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2fb3c737-1154-4e6e-8af2-3560b3dbeedd",
+              "name": "Service unavailable - rate limited or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58579016-7cfe-486e-9ecf-e27ef71bfa53",
+          "name": "Lunar.dev Proxy POST request",
+          "request": {
+            "name": "Lunar.dev Proxy POST request",
+            "description": {
+              "content": "Forwards a POST request to the target API host specified in the x-lunar-host header. The Lunar Gateway applies any configured flows and policies before forwarding the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                "key": "x-lunar-host",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                "key": "x-lunar-consumer-tag",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b333bf7-92dc-4deb-b432-8570fd176480",
+              "name": "Proxied response from the upstream API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "84db6184-b40b-4e8e-bccc-69bdc97ba1f9",
+              "name": "Bad gateway - upstream API is unreachable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "60d56dcd-6aab-40be-8ab7-281439f75edb",
+              "name": "Service unavailable - rate limited or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9b2b324-7c62-4561-8797-dcd2bf776094",
+          "name": "Lunar.dev Proxy PUT request",
+          "request": {
+            "name": "Lunar.dev Proxy PUT request",
+            "description": {
+              "content": "Forwards a PUT request to the target API host specified in the x-lunar-host header. The Lunar Gateway applies any configured flows and policies before forwarding the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                "key": "x-lunar-host",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                "key": "x-lunar-consumer-tag",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dff297d1-a439-4c3b-a435-a962c3ae4a14",
+              "name": "Proxied response from the upstream API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d7c3641c-bfc5-4605-88be-76ccc98a8e9d",
+              "name": "Bad gateway - upstream API is unreachable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b89239c8-8d1b-481e-a087-9f9af7570e5a",
+              "name": "Service unavailable - rate limited or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b9b4f92-df7f-49cb-bac8-9a83942074b9",
+          "name": "Lunar.dev Proxy DELETE request",
+          "request": {
+            "name": "Lunar.dev Proxy DELETE request",
+            "description": {
+              "content": "Forwards a DELETE request to the target API host specified in the x-lunar-host header. The Lunar Gateway applies any configured flows and policies before forwarding the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                "key": "x-lunar-host",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                "key": "x-lunar-consumer-tag",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de17207a-2572-4d63-b2a9-dc32d29552fc",
+              "name": "Proxied response from the upstream API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d24b4f1-81de-49bb-95ce-d23a6a6f6fe2",
+              "name": "Bad gateway - upstream API is unreachable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "47a99ee0-23c0-4cac-b6f1-f10cf619372b",
+              "name": "Service unavailable - rate limited or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c146b0b0-df0c-445d-9247-6a000ecda00a",
+          "name": "Lunar.dev Proxy PATCH request",
+          "request": {
+            "name": "Lunar.dev Proxy PATCH request",
+            "description": {
+              "content": "Forwards a PATCH request to the target API host specified in the x-lunar-host header. The Lunar Gateway applies any configured flows and policies before forwarding the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                "key": "x-lunar-host",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                "key": "x-lunar-consumer-tag",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4675ea0b-dc31-4022-92f6-189345a4cccf",
+              "name": "Proxied response from the upstream API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28adeb70-eea5-41df-9a0b-3747f91f8006",
+              "name": "Bad gateway - upstream API is unreachable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b8d286c-3b75-44f3-b547-ee95c48a017c",
+              "name": "Service unavailable - rate limited or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target host to forward the request to. This specifies which third-party API the request should be routed to through the Lunar Gateway.",
+                    "key": "x-lunar-host",
+                    "value": "catfact.ninja"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.",
+                    "key": "x-lunar-consumer-tag",
+                    "value": "backend-service"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8040",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "182546cb-e917-4cf5-8bfc-b50d9d4d3fc5",
+    "name": "Lunar.dev Gateway Admin Discovery Proxy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Lunar.dev Gateway Admin API provides administrative endpoints for managing and monitoring the Lunar API Consumption Gateway. The gateway acts as an egress proxy for third-party API traffic, providing visibility, control, and performance optimization. The admin API enables health monitoring, endpoint discovery, flow validation, and policy management for the running gateway instance.\n\nContact Support:\n Name: Lunar.dev",
+      "type": "text/plain"
+    }
+  }
+}

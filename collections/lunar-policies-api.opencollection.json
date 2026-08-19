@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lunar API Consumption Gateway Admin Configuration Policies API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Apply policies configuration (legacy mode)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/apply_policies"
+          },
+          "docs": "Applies a new policies configuration. Optionally accepts a raw policies YAML body to update the configuration before reloading from file. Used in legacy (non-flows/non-streams) mode only."
+        },
+        {
+          "info": {
+            "name": "Validate policies configuration (legacy mode)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/validate_policies"
+          },
+          "docs": "Validates the current policies YAML configuration file without applying changes. Used in legacy (non-flows) mode only."
+        },
+        {
+          "info": {
+            "name": "Revert to diagnosis-free policy state (legacy mode)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/revert_to_diagnosis_free"
+          },
+          "docs": "Reverts the gateway's active policy configuration to a diagnosis-free baseline state, removing all active diagnosis/remediation overrides. Used in legacy (non-flows) mode only."
+        },
+        {
+          "info": {
+            "name": "Revert to last loaded policy state (legacy mode)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:{adminPort}/revert_to_last_loaded"
+          },
+          "docs": "Reverts the gateway's active policy configuration to the last successfully loaded state, undoing any in-memory overrides. Used in legacy (non-flows) mode only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

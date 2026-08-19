@@ -1,0 +1,706 @@
+{
+  "item": [
+    {
+      "id": "772c14a5-c5d2-491c-8e18-69c7c8be5d33",
+      "name": "Policies",
+      "description": {
+        "content": "Manage Lunar Policies (legacy traffic control rules)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "66459a1a-d44b-475a-8398-79a97e582732",
+          "name": "Apply policies configuration (legacy mode)",
+          "request": {
+            "name": "Apply policies configuration (legacy mode)",
+            "description": {
+              "content": "Applies a new policies configuration. Optionally accepts a raw policies YAML body to update the configuration before reloading from file. Used in legacy (non-flows/non-streams) mode only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apply_policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-yaml"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "a1f1855a-61a8-47dd-8527-402b5a8879c5",
+              "name": "Policies applied successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apply_policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"Successfully applied policies from file\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9456350-d84d-4738-ac49-fa3d2ae0ef0c",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apply_policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ce53287-fde6-40e0-b4ef-7ed1fea8cb92",
+              "name": "Failed to read body or apply/reload policies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apply_policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4126134-f6b7-43b7-bf8c-b6db04fd14f6",
+          "name": "Validate policies configuration (legacy mode)",
+          "request": {
+            "name": "Validate policies configuration (legacy mode)",
+            "description": {
+              "content": "Validates the current policies YAML configuration file without applying changes. Used in legacy (non-flows) mode only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "validate_policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1d1a2af-e1f4-42a5-b8b7-cab5df2278e5",
+              "name": "Policies validated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "validate_policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"Successfully validated policies from file\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09e534fd-601f-4ddf-889a-aa106c9e9e34",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "validate_policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "879f38f9-16d5-41c5-a463-4eb546d6f0cd",
+              "name": "Failed to validate policies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "validate_policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4236bb73-3cbe-4a4e-abe3-f7880ba6b7e7",
+          "name": "Revert to diagnosis-free policy state (legacy mode)",
+          "request": {
+            "name": "Revert to diagnosis-free policy state (legacy mode)",
+            "description": {
+              "content": "Reverts the gateway's active policy configuration to a diagnosis-free baseline state, removing all active diagnosis/remediation overrides. Used in legacy (non-flows) mode only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "revert_to_diagnosis_free"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "020f8e0e-2c5d-4b91-a113-de9385574c0c",
+              "name": "Successfully reverted to diagnosis free state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "revert_to_diagnosis_free"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"Successfully reverted to diagnosis free\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e269558-63e8-4fa8-a739-ab56f03bd3c4",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "revert_to_diagnosis_free"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ac952f5-bf6d-4614-a97e-d317ed56c570",
+              "name": "Failed to revert",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "revert_to_diagnosis_free"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce1411ea-f675-48e7-8416-28eddd637920",
+          "name": "Revert to last loaded policy state (legacy mode)",
+          "request": {
+            "name": "Revert to last loaded policy state (legacy mode)",
+            "description": {
+              "content": "Reverts the gateway's active policy configuration to the last successfully loaded state, undoing any in-memory overrides. Used in legacy (non-flows) mode only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "revert_to_last_loaded"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                  "type": "any",
+                  "value": "{{adminPort}}",
+                  "key": "adminPort"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "809d9776-f8a3-4667-8e99-c5605caa60d1",
+              "name": "Successfully reverted to last loaded state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "revert_to_last_loaded"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"Successfully reverted to last loaded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f53f8323-1ce9-40e8-9c97-245ca63d66a7",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "revert_to_last_loaded"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec438510-543f-4a1f-9494-32f267456ad1",
+              "name": "Failed to revert",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "revert_to_last_loaded"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+                      "type": "any",
+                      "value": "{{adminPort}}",
+                      "key": "adminPort"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Admin port set via ENGINE_ADMIN_PORT environment variable",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8081",
+      "key": "adminPort"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:{{adminPort}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9753df4f-f655-438d-a152-fe741775b61b",
+    "name": "Lunar API Consumption Gateway Admin Configuration Policies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.\n\nContact Support:\n Name: Lunar Support",
+      "type": "text/plain"
+    }
+  }
+}
