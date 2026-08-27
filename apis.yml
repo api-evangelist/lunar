@@ -39,10 +39,11 @@ tags:
 apis:
 - aid: lunar:api-consumption-gateway
   name: Lunar API Consumption Gateway
-  description: The Lunar API Consumption Gateway is a proxy-based infrastructure layer that routes outbound
-    HTTP/HTTPS API traffic through configurable YAML-based flows. It enforces rate limits, quota policies,
-    priority queues, circuit breakers, and endpoint access controls without requiring code changes in
-    consuming applications. Requests are routed by setting x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag
+  description: >-
+    The Lunar API Consumption Gateway is a proxy-based infrastructure layer that routes outbound HTTP/HTTPS
+    API traffic through configurable YAML-based flows. It enforces rate limits, quota policies, priority
+    queues, circuit breakers, and endpoint access controls without requiring code changes in consuming
+    applications. Requests are routed by setting x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag
     headers and targeting the gateway on port 8000.
   humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
   baseURL: https://app.lunar.dev
@@ -55,13 +56,16 @@ apis:
   - type: Documentation
     url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
   - type: GettingStarted
-    url: https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
+    url: >-
+      https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-terminal/
   - type: ControlPlane
-    url: https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-control-plane/
+    url: >-
+      https://docs.lunar.dev/api-gateway/installation-overview/quick-start/quick-start-with-control-plane/
 - aid: lunar:mcpx-gateway
   name: Lunar MCPX Gateway
-  description: The Lunar MCPX Gateway is an agent-native Model Context Protocol gateway that governs tool
-    invocation for AI agents. It consolidates multiple MCP servers into a single endpoint, providing authentication,
+  description: >-
+    The Lunar MCPX Gateway is an agent-native Model Context Protocol gateway that governs tool invocation
+    for AI agents. It consolidates multiple MCP servers into a single endpoint, providing authentication,
     scoped permissions, secret forwarding, audit trails, and risk evaluation for AI agent workloads. The
     MCPX gateway supports role-based access control, tool groups, tool customization, and remote MCP authentication.
   humanURL: https://www.lunar.dev/product/ai-gateway
@@ -136,6 +140,28 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/lunar-policies-api-openapi.yml
+- aid: lunar:lunar-health-api
+  name: Lunar Health API
+  description: Gateway health monitoring endpoints.
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-health-api-openapi.yml
+- aid: lunar:lunar-proxy-api
+  name: Lunar Proxy API
+  description: >-
+    Proxy endpoints for routing third-party API traffic through the Lunar Gateway with policy enforcement,
+    traffic controls, and observability.
+  humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+  baseURL: https://app.lunar.dev
+  tags:
+  - Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/lunar-proxy-api-openapi.yml
 common:
 - type: IssueTracker
   url: https://github.com/TheLunarCompany/lunar/issues
