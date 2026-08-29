@@ -1,12 +1,9 @@
 {
   "provider": "lunar",
   "sources": [
-    "lunar-configuration-api-openapi.yml",
-    "lunar-discovery-api-openapi.yml",
-    "lunar-doctor-api-openapi.yml",
-    "lunar-flows-api-openapi.yml",
-    "lunar-handshake-api-openapi.yml",
-    "lunar-policies-api-openapi.yml"
+    "_original/lunar-api-consumption-gateway-openapi.yml",
+    "_original/lunar-gateway-admin-openapi.yml",
+    "_original/lunar-gateway-proxy-openapi.yml"
   ],
   "outputs": [
     "lunar-configuration-api-openapi.yml",
@@ -14,11 +11,30 @@
     "lunar-doctor-api-openapi.yml",
     "lunar-flows-api-openapi.yml",
     "lunar-handshake-api-openapi.yml",
-    "lunar-policies-api-openapi.yml"
+    "lunar-policies-api-openapi.yml",
+    "lunar-health-api-openapi.yml",
+    "lunar-proxy-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lunar-api-consumption-gateway-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "lunar-gateway-admin-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "lunar-gateway-proxy-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Discovery' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied",
+    "tag 'Flows' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied",
+    "tag 'Policies' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "lunar-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-doctor-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-flows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-handshake-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lunar-proxy-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

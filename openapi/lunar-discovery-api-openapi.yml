@@ -1,14 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lunar API Consumption Gateway Admin Configuration Discovery API
-  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  title: Lunar Discovery API
   version: 1.0.0
-  contact:
-    name: Lunar Support
-    url: https://docs.lunar.dev/
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
+  description: 'Operations tagged Discovery across 2 of this provider''s published API definitions: lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: http://localhost:{adminPort}
   description: Lunar Engine Admin API (local)
@@ -16,6 +10,10 @@ servers:
     adminPort:
       default: '8081'
       description: Admin port set via ENGINE_ADMIN_PORT environment variable
+- url: http://localhost:8040
+  description: Gateway Admin Health Server
+- url: http://localhost:8081
+  description: Gateway Admin Engine Server
 tags:
 - name: Discovery
   description: API discovery and remedy state reporting
@@ -42,6 +40,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '405':
           description: Method not allowed
+    servers:
+    - url: http://localhost:{adminPort}
+      description: Lunar Engine Admin API (local)
+      variables:
+        adminPort:
+          default: '8081'
+          description: Admin port set via ENGINE_ADMIN_PORT environment variable
   /remedy_stats:
     get:
       operationId: getRemedyStats
@@ -64,6 +69,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '405':
           description: Method not allowed
+    servers:
+    - url: http://localhost:{adminPort}
+      description: Lunar Engine Admin API (local)
+      variables:
+        adminPort:
+          default: '8081'
+          description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
     JSONFileResponse:
@@ -87,6 +99,39 @@ components:
           description: Underlying error string
       required:
       - msg
-externalDocs:
-  description: Lunar API Gateway Documentation
-  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+    DiscoveredEndpoint:
+      type: object
+      properties:
+        method:
+          type: string
+          description: HTTP method observed for this endpoint.
+          examples:
+          - GET
+          - POST
+        url:
+          type: string
+          description: The URL pattern of the discovered endpoint.
+          examples:
+          - api.example.com/v1/users
+        status_codes:
+          type: object
+          description: Distribution of HTTP status codes observed.
+          additionalProperties:
+            type: integer
+        count:
+          type: integer
+          description: Total number of requests observed for this endpoint.
+        average_latency_ms:
+          type: number
+          description: Average latency in milliseconds for requests to this endpoint.
+    DiscoveredEndpoints:
+      type: object
+      properties:
+        endpoints:
+          type: array
+          description: List of discovered API endpoints.
+          items:
+            $ref: '#/components/schemas/DiscoveredEndpoint'
+x-refined-from:
+- lunar-api-consumption-gateway-openapi.yml
+- lunar-gateway-admin-openapi.yml

@@ -1,14 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lunar API Consumption Gateway Admin Configuration Policies API
-  description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
+  title: Lunar Policies API
   version: 1.0.0
-  contact:
-    name: Lunar Support
-    url: https://docs.lunar.dev/
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
+  description: 'Operations tagged Policies across 2 of this provider''s published API definitions: lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: http://localhost:{adminPort}
   description: Lunar Engine Admin API (local)
@@ -16,6 +10,10 @@ servers:
     adminPort:
       default: '8081'
       description: Admin port set via ENGINE_ADMIN_PORT environment variable
+- url: http://localhost:8040
+  description: Gateway Admin Health Server
+- url: http://localhost:8081
+  description: Gateway Admin Engine Server
 tags:
 - name: Policies
   description: Manage Lunar Policies (legacy traffic control rules)
@@ -51,6 +49,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '405':
           description: Method not allowed
+    servers:
+    - url: http://localhost:{adminPort}
+      description: Lunar Engine Admin API (local)
+      variables:
+        adminPort:
+          default: '8081'
+          description: Admin port set via ENGINE_ADMIN_PORT environment variable
   /validate_policies:
     post:
       operationId: validatePolicies
@@ -75,6 +80,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '405':
           description: Method not allowed
+    servers:
+    - url: http://localhost:{adminPort}
+      description: Lunar Engine Admin API (local)
+      variables:
+        adminPort:
+          default: '8081'
+          description: Admin port set via ENGINE_ADMIN_PORT environment variable
   /revert_to_diagnosis_free:
     post:
       operationId: revertToDiagnosisFree
@@ -99,6 +111,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '405':
           description: Method not allowed
+    servers:
+    - url: http://localhost:{adminPort}
+      description: Lunar Engine Admin API (local)
+      variables:
+        adminPort:
+          default: '8081'
+          description: Admin port set via ENGINE_ADMIN_PORT environment variable
   /revert_to_last_loaded:
     post:
       operationId: revertToLastLoaded
@@ -123,6 +142,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '405':
           description: Method not allowed
+    servers:
+    - url: http://localhost:{adminPort}
+      description: Lunar Engine Admin API (local)
+      variables:
+        adminPort:
+          default: '8081'
+          description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
     SuccessResponse:
@@ -146,6 +172,37 @@ components:
           description: Underlying error string
       required:
       - msg
-externalDocs:
-  description: Lunar API Gateway Documentation
-  url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
+    OperationResult:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Result status of the operation.
+          examples:
+          - ok
+        message:
+          type: string
+          description: Human-readable message about the operation result.
+    ValidationResult:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: Whether the configuration is valid.
+        errors:
+          type: array
+          description: List of validation errors found, if any.
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong.
+        details:
+          type: string
+          description: Additional details about the error.
+x-refined-from:
+- lunar-api-consumption-gateway-openapi.yml
+- lunar-gateway-admin-openapi.yml

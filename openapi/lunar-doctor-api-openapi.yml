@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lunar API Consumption Gateway Admin Configuration Doctor API
+  title: Lunar API Consumption Gateway Admin Doctor API
   description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
   version: 1.0.0
   contact:

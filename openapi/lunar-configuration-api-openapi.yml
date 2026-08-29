@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Lunar API Consumption Gateway Admin Configuration API
   description: Administrative REST API for the Lunar API Consumption Gateway (lunar-engine). This API is exposed on the ENGINE_ADMIN_PORT and provides endpoints for managing flows, policies, configuration, discovery state, and gateway health. The gateway also acts as a proxy for outbound HTTP/HTTPS API traffic on port 8000, controlled via x-lunar-scheme, x-lunar-host, and x-lunar-consumer-tag headers. This spec covers the management/admin plane.
@@ -66,6 +66,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ContractPayload:
+      type: object
+      description: Contract-based configuration payload for the /configuration endpoint. Supports get and set operations on gateway configuration resources.
+      additionalProperties: true
     JSONFileResponse:
       type: object
       description: Wrapper response containing JSON file content as a string
@@ -75,10 +79,6 @@ components:
           description: JSON file contents serialized as a string
       required:
       - data
-    ContractPayload:
-      type: object
-      description: Contract-based configuration payload for the /configuration endpoint. Supports get and set operations on gateway configuration resources.
-      additionalProperties: true
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
