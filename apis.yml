@@ -7,6 +7,20 @@ description: Lunar is an enterprise-grade API management and AI control plane pl
   delivers real-time visibility into model, API, and tool invocations alongside policy-based enforcement,
   cost controls, and advanced traffic shaping including retries, priority queues, and circuit breakers.
 type: Index
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
