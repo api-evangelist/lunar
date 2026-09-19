@@ -130,6 +130,8 @@ apis:
   humanURL: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
   baseURL: https://app.lunar.dev
   tags:
+  - Flow
+  tags_raw:
   - Flows
   properties:
   - type: OpenAPI
