@@ -25,7 +25,8 @@
     "lunar-gateway-proxy-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "tag 'Discovery' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied",
     "tag 'Flows' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied",
-    "tag 'Policies' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied"
+    "tag 'Policies' spans 2 source specs (lunar-api-consumption-gateway-openapi.yml, lunar-gateway-admin-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "lunar-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",

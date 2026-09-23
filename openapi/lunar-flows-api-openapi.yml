@@ -191,10 +191,6 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
-    FlowsConfigurationPayload:
-      type: object
-      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
-      additionalProperties: true
     OnErrorPayload:
       type: object
       description: Payload from HAProxy reporting failed transactions
@@ -207,15 +203,6 @@ components:
             additionalProperties: true
       required:
       - failedTransactions
-    SuccessResponse:
-      type: object
-      description: Generic success message response
-      properties:
-        msg:
-          type: string
-          description: Human-readable success message
-      required:
-      - msg
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -228,17 +215,28 @@ components:
           description: Underlying error string
       required:
       - msg
-    OperationResult:
+    SuccessResponse:
+      type: object
+      description: Generic success message response
+      properties:
+        msg:
+          type: string
+          description: Human-readable success message
+      required:
+      - msg
+    FlowsConfigurationPayload:
+      type: object
+      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
+      additionalProperties: true
+    Error:
       type: object
       properties:
-        status:
+        error:
           type: string
-          description: Result status of the operation.
-          examples:
-          - ok
-        message:
+          description: Error message describing what went wrong.
+        details:
           type: string
-          description: Human-readable message about the operation result.
+          description: Additional details about the error.
     ValidationResult:
       type: object
       properties:
@@ -250,15 +248,17 @@ components:
           description: List of validation errors found, if any.
           items:
             type: string
-    Error:
+    OperationResult:
       type: object
       properties:
-        error:
+        status:
           type: string
-          description: Error message describing what went wrong.
-        details:
+          description: Result status of the operation.
+          examples:
+          - ok
+        message:
           type: string
-          description: Additional details about the error.
+          description: Human-readable message about the operation result.
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml

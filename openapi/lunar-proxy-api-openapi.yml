@@ -134,6 +134,17 @@ paths:
           description: Service unavailable - rate limited or quota exceeded.
 components:
   parameters:
+    LunarConsumerTag:
+      name: x-lunar-consumer-tag
+      in: header
+      required: false
+      description: An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.
+      schema:
+        type: string
+      examples:
+        backend:
+          value: backend-service
+          summary: Backend service consumer tag
     LunarHost:
       name: x-lunar-host
       in: header
@@ -155,17 +166,6 @@ components:
       description: The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API.
       schema:
         type: string
-    LunarConsumerTag:
-      name: x-lunar-consumer-tag
-      in: header
-      required: false
-      description: An optional tag identifying the consuming application or service. Used for tracking and applying consumer-specific policies and quota allocations.
-      schema:
-        type: string
-      examples:
-        backend:
-          value: backend-service
-          summary: Backend service consumer tag
 externalDocs:
   description: Lunar.dev Documentation
   url: https://docs.lunar.dev/
