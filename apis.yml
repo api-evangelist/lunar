@@ -253,7 +253,7 @@ common:
   name: About Us | Lunar
   type: About
   description: 'null'
-- url: https://login.lunar.dev/u/login?state=hKFo2SBYaVVrZmZpMHhLN3M3RFlmV0s1WUZCYzZjb2Nwa2FNWaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIEtDRC1iM2d3Z1ltMTNSYmpKZEloOHFHUFp3aG5FMk9vo2NpZNkgQTZBOVRoUnJ6anp2eEx6cFUwRm5JZE1Id0xUUmdnSFE
+- url: https://login.lunar.dev/u/login
   name: Sign in | Lunar.dev
   type: Login
   description: 'null'

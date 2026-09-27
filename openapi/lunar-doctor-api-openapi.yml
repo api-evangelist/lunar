@@ -44,10 +44,6 @@ paths:
           description: Method not allowed
 components:
   schemas:
-    DoctorReport:
-      type: object
-      description: Diagnostic report from the Doctor service. Contains gateway health information including streams/policies status, hub connectivity, and telemetry writer health.
-      additionalProperties: true
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -60,6 +56,10 @@ components:
           description: Underlying error string
       required:
       - msg
+    DoctorReport:
+      type: object
+      description: Diagnostic report from the Doctor service. Contains gateway health information including streams/policies status, hub connectivity, and telemetry writer health.
+      additionalProperties: true
 externalDocs:
   description: Lunar API Gateway Documentation
   url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/

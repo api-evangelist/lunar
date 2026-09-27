@@ -172,6 +172,17 @@ components:
           description: Human-readable success message
       required:
       - msg
+    OperationResult:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Result status of the operation.
+          examples:
+          - ok
+        message:
+          type: string
+          description: Human-readable message about the operation result.
     ValidationResult:
       type: object
       properties:
@@ -192,17 +203,6 @@ components:
         details:
           type: string
           description: Additional details about the error.
-    OperationResult:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Result status of the operation.
-          examples:
-          - ok
-        message:
-          type: string
-          description: Human-readable message about the operation result.
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml

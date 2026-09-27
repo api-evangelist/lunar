@@ -127,7 +127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
-      operationId: applyFlows
+      operationId: postApplyFlows
       summary: Lunar.dev Apply flows
       description: Applies the current flow configuration files to the running Lunar Gateway instance. Flows define traffic management rules including rate limiting, caching, retry mechanisms, quota enforcement, and request prioritization.
       tags:
@@ -145,6 +145,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-operation-id-source: normalized
+      x-operation-id-original: applyFlows
     servers:
     - url: http://localhost:{adminPort}
       description: Lunar Engine Admin API (local)
@@ -191,18 +193,10 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
-    OnErrorPayload:
+    FlowsConfigurationPayload:
       type: object
-      description: Payload from HAProxy reporting failed transactions
-      properties:
-        failedTransactions:
-          type: object
-          description: Map of failed transaction IDs to error details
-          additionalProperties:
-            type: object
-            additionalProperties: true
-      required:
-      - failedTransactions
+      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
+      additionalProperties: true
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -215,6 +209,18 @@ components:
           description: Underlying error string
       required:
       - msg
+    OnErrorPayload:
+      type: object
+      description: Payload from HAProxy reporting failed transactions
+      properties:
+        failedTransactions:
+          type: object
+          description: Map of failed transaction IDs to error details
+          additionalProperties:
+            type: object
+            additionalProperties: true
+      required:
+      - failedTransactions
     SuccessResponse:
       type: object
       description: Generic success message response
@@ -224,30 +230,6 @@ components:
           description: Human-readable success message
       required:
       - msg
-    FlowsConfigurationPayload:
-      type: object
-      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
-      additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message describing what went wrong.
-        details:
-          type: string
-          description: Additional details about the error.
-    ValidationResult:
-      type: object
-      properties:
-        valid:
-          type: boolean
-          description: Whether the configuration is valid.
-        errors:
-          type: array
-          description: List of validation errors found, if any.
-          items:
-            type: string
     OperationResult:
       type: object
       properties:
@@ -259,6 +241,26 @@ components:
         message:
           type: string
           description: Human-readable message about the operation result.
+    ValidationResult:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: Whether the configuration is valid.
+        errors:
+          type: array
+          description: List of validation errors found, if any.
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong.
+        details:
+          type: string
+          description: Additional details about the error.
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml

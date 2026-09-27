@@ -75,10 +75,6 @@ components:
           description: JSON file contents serialized as a string
       required:
       - data
-    ContractPayload:
-      type: object
-      description: Contract-based configuration payload for the /configuration endpoint. Supports get and set operations on gateway configuration resources.
-      additionalProperties: true
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -91,6 +87,10 @@ components:
           description: Underlying error string
       required:
       - msg
+    ContractPayload:
+      type: object
+      description: Contract-based configuration payload for the /configuration endpoint. Supports get and set operations on gateway configuration resources.
+      additionalProperties: true
 externalDocs:
   description: Lunar API Gateway Documentation
   url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/
