@@ -66,15 +66,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    JSONFileResponse:
-      type: object
-      description: Wrapper response containing JSON file content as a string
-      properties:
-        data:
-          type: string
-          description: JSON file contents serialized as a string
-      required:
-      - data
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -91,6 +82,15 @@ components:
       type: object
       description: Contract-based configuration payload for the /configuration endpoint. Supports get and set operations on gateway configuration resources.
       additionalProperties: true
+    JSONFileResponse:
+      type: object
+      description: Wrapper response containing JSON file content as a string
+      properties:
+        data:
+          type: string
+          description: JSON file contents serialized as a string
+      required:
+      - data
 externalDocs:
   description: Lunar API Gateway Documentation
   url: https://docs.lunar.dev/api-gateway/get-started/welcome-to-lunar/

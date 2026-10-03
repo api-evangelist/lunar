@@ -151,6 +151,15 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
+    SuccessResponse:
+      type: object
+      description: Generic success message response
+      properties:
+        msg:
+          type: string
+          description: Human-readable success message
+      required:
+      - msg
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -161,15 +170,6 @@ components:
         error:
           type: string
           description: Underlying error string
-      required:
-      - msg
-    SuccessResponse:
-      type: object
-      description: Generic success message response
-      properties:
-        msg:
-          type: string
-          description: Human-readable success message
       required:
       - msg
     OperationResult:

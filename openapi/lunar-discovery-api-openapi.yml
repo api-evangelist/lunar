@@ -78,15 +78,6 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
-    JSONFileResponse:
-      type: object
-      description: Wrapper response containing JSON file content as a string
-      properties:
-        data:
-          type: string
-          description: JSON file contents serialized as a string
-      required:
-      - data
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -99,6 +90,15 @@ components:
           description: Underlying error string
       required:
       - msg
+    JSONFileResponse:
+      type: object
+      description: Wrapper response containing JSON file content as a string
+      properties:
+        data:
+          type: string
+          description: JSON file contents serialized as a string
+      required:
+      - data
     DiscoveredEndpoint:
       type: object
       properties:
