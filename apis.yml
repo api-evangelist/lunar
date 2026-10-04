@@ -38,6 +38,9 @@ url: https://raw.githubusercontent.com/api-evangelist/lunar/refs/heads/main/apis
 created: '2026-06-13'
 modified: '2026-08-08'
 specificationVersion: '0.23'
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - API Management
 - API Gateway
