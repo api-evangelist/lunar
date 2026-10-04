@@ -172,17 +172,15 @@ components:
           description: Underlying error string
       required:
       - msg
-    OperationResult:
+    Error:
       type: object
       properties:
-        status:
+        error:
           type: string
-          description: Result status of the operation.
-          examples:
-          - ok
-        message:
+          description: Error message describing what went wrong.
+        details:
           type: string
-          description: Human-readable message about the operation result.
+          description: Additional details about the error.
     ValidationResult:
       type: object
       properties:
@@ -194,15 +192,17 @@ components:
           description: List of validation errors found, if any.
           items:
             type: string
-    Error:
+    OperationResult:
       type: object
       properties:
-        error:
+        status:
           type: string
-          description: Error message describing what went wrong.
-        details:
+          description: Result status of the operation.
+          examples:
+          - ok
+        message:
           type: string
-          description: Additional details about the error.
+          description: Human-readable message about the operation result.
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml

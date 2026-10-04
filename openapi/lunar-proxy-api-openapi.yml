@@ -134,13 +134,6 @@ paths:
           description: Service unavailable - rate limited or quota exceeded.
 components:
   parameters:
-    Path:
-      name: path
-      in: path
-      required: true
-      description: The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API.
-      schema:
-        type: string
     LunarConsumerTag:
       name: x-lunar-consumer-tag
       in: header
@@ -166,6 +159,13 @@ components:
         generic:
           value: api.example.com
           summary: Generic API host
+    Path:
+      name: path
+      in: path
+      required: true
+      description: The original request path to forward to the upstream API. This is the path that would normally be sent directly to the third-party API.
+      schema:
+        type: string
 externalDocs:
   description: Lunar.dev Documentation
   url: https://docs.lunar.dev/
