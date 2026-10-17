@@ -151,15 +151,6 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      description: Generic success message response
-      properties:
-        msg:
-          type: string
-          description: Human-readable success message
-      required:
-      - msg
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -172,15 +163,15 @@ components:
           description: Underlying error string
       required:
       - msg
-    Error:
+    SuccessResponse:
       type: object
+      description: Generic success message response
       properties:
-        error:
+        msg:
           type: string
-          description: Error message describing what went wrong.
-        details:
-          type: string
-          description: Additional details about the error.
+          description: Human-readable success message
+      required:
+      - msg
     ValidationResult:
       type: object
       properties:
@@ -203,6 +194,15 @@ components:
         message:
           type: string
           description: Human-readable message about the operation result.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong.
+        details:
+          type: string
+          description: Additional details about the error.
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml

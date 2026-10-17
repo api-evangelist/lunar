@@ -193,6 +193,22 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Error response with message and optional error detail
+      properties:
+        msg:
+          type: string
+          description: Human-readable error message
+        error:
+          type: string
+          description: Underlying error string
+      required:
+      - msg
+    FlowsConfigurationPayload:
+      type: object
+      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
+      additionalProperties: true
     SuccessResponse:
       type: object
       description: Generic success message response
@@ -214,31 +230,6 @@ components:
             additionalProperties: true
       required:
       - failedTransactions
-    ErrorResponse:
-      type: object
-      description: Error response with message and optional error detail
-      properties:
-        msg:
-          type: string
-          description: Human-readable error message
-        error:
-          type: string
-          description: Underlying error string
-      required:
-      - msg
-    FlowsConfigurationPayload:
-      type: object
-      description: Configuration payload for the /apply_flows endpoint. Contains flow definitions to be applied to the gateway. The exact structure is defined by the Lunar Flows YAML schema.
-      additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message describing what went wrong.
-        details:
-          type: string
-          description: Additional details about the error.
     ValidationResult:
       type: object
       properties:
@@ -261,6 +252,15 @@ components:
         message:
           type: string
           description: Human-readable message about the operation result.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong.
+        details:
+          type: string
+          description: Additional details about the error.
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml

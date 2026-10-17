@@ -66,15 +66,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    JSONFileResponse:
-      type: object
-      description: Wrapper response containing JSON file content as a string
-      properties:
-        data:
-          type: string
-          description: JSON file contents serialized as a string
-      required:
-      - data
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -87,6 +78,15 @@ components:
           description: Underlying error string
       required:
       - msg
+    JSONFileResponse:
+      type: object
+      description: Wrapper response containing JSON file content as a string
+      properties:
+        data:
+          type: string
+          description: JSON file contents serialized as a string
+      required:
+      - data
     ContractPayload:
       type: object
       description: Contract-based configuration payload for the /configuration endpoint. Supports get and set operations on gateway configuration resources.

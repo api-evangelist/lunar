@@ -78,15 +78,6 @@ paths:
           description: Admin port set via ENGINE_ADMIN_PORT environment variable
 components:
   schemas:
-    JSONFileResponse:
-      type: object
-      description: Wrapper response containing JSON file content as a string
-      properties:
-        data:
-          type: string
-          description: JSON file contents serialized as a string
-      required:
-      - data
     ErrorResponse:
       type: object
       description: Error response with message and optional error detail
@@ -99,6 +90,23 @@ components:
           description: Underlying error string
       required:
       - msg
+    JSONFileResponse:
+      type: object
+      description: Wrapper response containing JSON file content as a string
+      properties:
+        data:
+          type: string
+          description: JSON file contents serialized as a string
+      required:
+      - data
+    DiscoveredEndpoints:
+      type: object
+      properties:
+        endpoints:
+          type: array
+          description: List of discovered API endpoints.
+          items:
+            $ref: '#/components/schemas/DiscoveredEndpoint'
     DiscoveredEndpoint:
       type: object
       properties:
@@ -124,14 +132,6 @@ components:
         average_latency_ms:
           type: number
           description: Average latency in milliseconds for requests to this endpoint.
-    DiscoveredEndpoints:
-      type: object
-      properties:
-        endpoints:
-          type: array
-          description: List of discovered API endpoints.
-          items:
-            $ref: '#/components/schemas/DiscoveredEndpoint'
 x-refined-from:
 - lunar-api-consumption-gateway-openapi.yml
 - lunar-gateway-admin-openapi.yml
